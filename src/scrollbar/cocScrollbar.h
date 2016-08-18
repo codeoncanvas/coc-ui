@@ -38,13 +38,18 @@ public:
         Horizontal
     };
 
-    class Config {
-        Config() {
-            type = Type::Vertical;
-            ease = 0.0;
-        }
+    class Settings {
+    public:
+        Settings():
+        type(Type::Vertical),
+        position(0),
+        contentRatio(0.5),
+        ease(0) {}
+        
         Type type;
         coc::Rect rect;
+        float position;
+        float contentRatio;
         float ease;
     };
 
@@ -52,16 +57,34 @@ public:
     Scrollbar();
     ~Scrollbar();
     
-    static ScrollbarRef create(const Config & config);
+    static ScrollbarRef create(const Settings & settings);
     
-    virtual void setup(const Config & config);
-    virtual void update(float timeDelta=0);
+    virtual void setup(const Settings & settings);
+    virtual coc::ButtonRef initButton() { return coc::Button::create(); }
+    
+    void setType(Type value) { settings.type = value; }
+    void setRect(coc::Rect value) { settings.rect = value; }
+    void setContentRatio(float value) { settings.contentRatio = value; }
+    void setEase(float value) { settings.ease = value; }
+    void setPosition(float value) { settings.position = value; }
+    
+    virtual void update();
+    
     virtual void draw() const {};
+    virtual void drawDebug() const {};
+    
+	virtual void pointMoved(int x, int y);
+    virtual void pointPressed(int x, int y);
+	virtual void pointDragged(int x, int y);
+	virtual void pointReleased(int x, int y);
 
 protected:
 
-    coc::Button track;
-    coc::Button thumb;
+    Settings settingsOld;
+    Settings settings;
+    
+    coc::ButtonRef track;
+    coc::ButtonRef thumb;
 };
 
 }
