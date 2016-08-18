@@ -23,18 +23,17 @@
 #include "ciButton.h"
 
 namespace coc {
-namespace ci {
 
 //--------------------------------------------------------------
-class Scrollbar;
-typedef std::shared_ptr<Scrollbar> ScrollbarRef;
+class ciScrollbar;
+typedef std::shared_ptr<ciScrollbar> ciScrollbarRef;
 
 //--------------------------------------------------------------
-class Scrollbar : public coc::Scrollbar {
+class ciScrollbar : public coc::Scrollbar {
 public:
 
-    Scrollbar();
-    ~Scrollbar();
+    ciScrollbar();
+    ~ciScrollbar();
     
     virtual coc::ButtonRef initButton() override { return coc::ciButton::create(); }
     
@@ -46,5 +45,4 @@ protected:
     //
 };
 
-}
 }

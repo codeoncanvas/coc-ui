@@ -20,25 +20,23 @@
 #include "ciScrollbar.h"
 
 namespace coc {
-namespace ci {
 
-Scrollbar::Scrollbar() :
+ciScrollbar::ciScrollbar() :
 coc::Scrollbar() {
     //
 }
 
-Scrollbar::~Scrollbar() {
+ciScrollbar::~ciScrollbar() {
     //
 }
     
-void Scrollbar::draw() const {
+void ciScrollbar::draw() const {
     //
 }
 
-void Scrollbar::drawDebug() const {
+void ciScrollbar::drawDebug() const {
     track->drawDebug();
     thumb->drawDebug();
 }
 
-}
 }
