@@ -85,6 +85,9 @@ protected:
     
     coc::ButtonRef track;
     coc::ButtonRef thumb;
+    glm::ivec2 thumbPressStartPos;
+    glm::ivec2 thumbPressInsidePos;
+    bool bThumbPressed;
 };
 
 }

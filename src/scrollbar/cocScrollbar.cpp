@@ -22,7 +22,7 @@
 namespace coc {
 
 Scrollbar::Scrollbar() {
-    //
+    bThumbPressed = false;
 }
 
 Scrollbar::~Scrollbar() {
@@ -46,8 +46,9 @@ void Scrollbar::update() {
 
     settingsOld = settings;
     
-    coc::Rect & trackRect = settings.rect;
+    const coc::Rect & trackRect = settings.rect;
     coc::Rect thumbRect = trackRect;
+    
     if(settings.type == Type::Vertical) {
     
         float trackRectY = trackRect.getY();
@@ -75,9 +76,60 @@ void Scrollbar::update() {
 
     if(thumb->pressedInside()) {
         
-        // start thumb drag.
+        track->reset(); // when thumb is pressed, cancel events going down to the track.
         
-    } else if(track->pressedInside()) {
+        thumbPressStartPos.x = thumb->getRect().getX();
+        thumbPressStartPos.y = thumb->getRect().getY();
+        thumbPressInsidePos = thumb->getPointPosLast();
+        bThumbPressed = true;
+    
+    } else if(thumb->releasedInside() || thumb->releasedOutside()) {
+    
+        bThumbPressed = false;
+    }
+    
+    if(bThumbPressed) {
+        
+        glm::ivec2 thumbPressPos = thumb->getPointPosLast();
+        coc::Rect thumbRect = thumb->getRect();
+        int thumbMin = 0;
+        int thumbMax = 0;
+        int thumbDrag = 0;
+        int thumbPos = 0;
+        float thumbPosNorm = 0;
+        
+        if(settings.type == coc::Scrollbar::Type::Vertical) {
+        
+            thumbMin = settings.rect.getY();
+            thumbMax = thumbMin + settings.rect.getH() - thumbRect.getH();
+            thumbDrag = thumbPressInsidePos.y - thumbPressPos.y;
+            thumbPos = thumbPressStartPos.y + thumbDrag;
+            
+            thumbPosNorm = coc::map(thumbPos, thumbMin, thumbMax, 0.0, 1.0, true);
+            thumbPos = coc::map(thumbPosNorm, 0.0, 1.0, thumbMin, thumbMax);
+            
+            thumbRect.setY(thumbPos);
+        
+        } else if(settings.type == coc::Scrollbar::Type::Horizontal) {
+        
+            thumbMin = settings.rect.getX();
+            thumbMax = thumbMin + settings.rect.getW() - thumbRect.getW();
+            thumbDrag = thumbPressInsidePos.x - thumbPressPos.x;
+            thumbPos = thumbPressStartPos.x + thumbDrag;
+            
+            thumbPosNorm = coc::map(thumbPos, thumbMin, thumbMax, 0.0, 1.0, true);
+            thumbPos = coc::map(thumbPosNorm, 0.0, 1.0, thumbMin, thumbMax);
+            
+            thumbRect.setX(thumbPos);
+        }
+        
+        std::cout << thumbPosNorm << std::endl;
+        
+        settings.position = thumbPosNorm;
+        thumb->setRect(thumbRect);
+    }
+    
+    if(track->pressedInside()) {
     
         // jump to location.
     }
