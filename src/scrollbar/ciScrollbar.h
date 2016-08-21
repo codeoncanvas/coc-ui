@@ -35,7 +35,7 @@ public:
     ciScrollbar();
     ~ciScrollbar();
     
-    virtual coc::ButtonRef initButton() override { return coc::ciButton::create(); }
+    virtual coc::ButtonRef initButton() const override { return coc::ciButton::create(); }
     
     virtual void draw() const override;
     virtual void drawDebug() const override;
