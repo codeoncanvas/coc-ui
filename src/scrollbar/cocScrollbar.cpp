@@ -22,12 +22,15 @@
 namespace coc {
 
 //--------------------------------------------------------------
-Scrollbar::Scrollbar() {
-    type = Type::Vertical;
-    position = 0.0;
-    contentRatio = 0.5;
-    ease = 0.0;
-    bThumbPressed = false;
+Scrollbar::Scrollbar():
+type(Type::Vertical),
+position(0.0),
+contentRatio(0.5),
+ease(0.0),
+bThumbPressed(false),
+bPositionChangeInternal(false),
+bPositionChangeExternal(false) {
+    //
 }
 
 Scrollbar::~Scrollbar() {
@@ -84,6 +87,7 @@ float Scrollbar::getEase() const {
 
 //--------------------------------------------------------------
 void Scrollbar::setPosition(float value) {
+    bPositionChangeExternal = (position != value);
     position = value;
 }
 
@@ -93,6 +97,8 @@ float Scrollbar::getPosition() const {
 
 //--------------------------------------------------------------
 void Scrollbar::update() {
+
+    bPositionChangeInternal = false;
 
     const coc::Rect & trackRect = rect;
     coc::Rect thumbRect = trackRect;
@@ -186,9 +192,12 @@ void Scrollbar::update() {
             thumbRect.setX(thumbPos);
         }
         
+        bPositionChangeInternal = (position != thumbPosNorm);
         position = thumbPosNorm;
         thumb->setRect(thumbRect);
     }
+    
+    bPositionChangeExternal = false;
 }
 
 //--------------------------------------------------------------

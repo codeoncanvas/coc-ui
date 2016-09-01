@@ -59,6 +59,7 @@ public:
     
     void setPosition(float value);
     float getPosition() const;
+    bool hasPositionChanged() const { return bPositionChangeInternal; }
     
     virtual void update();
     
@@ -83,6 +84,9 @@ protected:
     glm::ivec2 thumbPressStartPos;
     glm::ivec2 thumbPressInsidePos;
     bool bThumbPressed;
+    
+    bool bPositionChangeInternal;
+    bool bPositionChangeExternal;
 };
 
 }
