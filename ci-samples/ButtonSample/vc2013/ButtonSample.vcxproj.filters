@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Blocks">
+      <UniqueIdentifier>{1AD68349-FA4E-4ED7-889A-1F9FE5BD0454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\CoC-Button">
+      <UniqueIdentifier>{BCBE5601-FB53-4337-BAC5-BA210175671A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\CoC-Button\src">
+      <UniqueIdentifier>{696E6D0F-4E61-461E-8EFB-E9B83305C418}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\CoC-Core">
+      <UniqueIdentifier>{9D14BE60-3856-4940-A552-E7F172AB9DE6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\CoC-Core\src">
+      <UniqueIdentifier>{2F07BDCB-19A9-4E42-910E-51FE86D60B30}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\ButtonSampleWinApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ciButton.h">
+      <Filter>Blocks\CoC-Button\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ciButtonTexture.h">
+      <Filter>Blocks\CoC-Button\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\cocButton.h">
+      <Filter>Blocks\CoC-Button\src</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\src\ciButton.cpp">
+      <Filter>Blocks\CoC-Button\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ciButtonTexture.cpp">
+      <Filter>Blocks\CoC-Button\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\cocButton.cpp">
+      <Filter>Blocks\CoC-Button\src</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\..\coc-core\src\cocConstants.h">
+      <Filter>Blocks\CoC-Core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\coc-core\src\cocCore.h">
+      <Filter>Blocks\CoC-Core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\coc-core\src\cocMath.h">
+      <Filter>Blocks\CoC-Core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\coc-core\src\cocRandom.h">
+      <Filter>Blocks\CoC-Core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\coc-core\src\cocRect.h">
+      <Filter>Blocks\CoC-Core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\coc-core\src\cocValue.h">
+      <Filter>Blocks\CoC-Core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\coc-core\src\cocValuePlatform.h">
+      <Filter>Blocks\CoC-Core\src</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\..\coc-core\src\cocCore.cpp">
+      <Filter>Blocks\CoC-Core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\coc-core\src\cocMath.cpp">
+      <Filter>Blocks\CoC-Core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\coc-core\src\cocRandom.cpp">
+      <Filter>Blocks\CoC-Core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\coc-core\src\cocRect.cpp">
+      <Filter>Blocks\CoC-Core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\coc-core\src\cocValue.cpp">
+      <Filter>Blocks\CoC-Core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ButtonSampleApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
