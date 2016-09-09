@@ -16,12 +16,18 @@ class ScrollViewSampleApp : public App {
 	void update() override;
 	void draw() override;
     void cleanup() override;
+    
     void mouseMove( MouseEvent event ) override;
     void mouseDown( MouseEvent event ) override;
     void mouseDrag( MouseEvent event ) override;
     void mouseUp( MouseEvent event ) override;
+    
+	void touchesBegan( TouchEvent event ) override;
+	void touchesMoved( TouchEvent event ) override;
+	void touchesEnded( TouchEvent event ) override;
+    
     void keyDown( KeyEvent event ) override;
-
+    
 	Rectf windowRect;
 	Rectf contentRect;
 	ciScrollViewRef scrollView;
@@ -101,6 +107,7 @@ void ScrollViewSampleApp::cleanup() {
 //	scrollView->setUserInteraction(false); // always remember to disable user interaction when killing the scrollview class.
 }
 
+//-------------------------------------------------------------- mouse interaction.
 void ScrollViewSampleApp::mouseMove( MouseEvent event ) {
     if(bUserInteractionManual == true) {
         scrollView->pointMoved(event.getX(), event.getY(), 0);
@@ -125,6 +132,29 @@ void ScrollViewSampleApp::mouseUp( MouseEvent event ) {
     }
 }
 
+//-------------------------------------------------------------- touch interaction.
+void ScrollViewSampleApp::touchesBegan( TouchEvent event ) {
+    if(bUserInteractionManual == true) {
+        const TouchEvent::Touch & touch = event.getTouches()[0];
+        scrollView->pointPressed(touch.getX(), touch.getY(), 0);
+    }
+}
+
+void ScrollViewSampleApp::touchesMoved( TouchEvent event ) {
+    if(bUserInteractionManual == true) {
+        const TouchEvent::Touch & touch = event.getTouches()[0];
+        scrollView->pointDragged(touch.getX(), touch.getY(), 0);
+    }
+}
+
+void ScrollViewSampleApp::touchesEnded( TouchEvent event ) {
+    if(bUserInteractionManual == true) {
+        const TouchEvent::Touch & touch = event.getTouches()[0];
+        scrollView->pointReleased(touch.getX(), touch.getY(), 0);
+    }
+}
+
+//--------------------------------------------------------------
 void ScrollViewSampleApp::keyDown( KeyEvent event ) {
     if(event.getChar() == ' ') {
         scrollView->setScrollToFillWindow(1.0);

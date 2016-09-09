@@ -8,76 +8,84 @@
 
 /* Begin PBXBuildFile section */
 		0087D25512CD809F002CD69F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0087D25412CD809F002CD69F /* CoreText.framework */; };
+		00A66A361965AC8800B17EB3 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00A66A351965AC8800B17EB3 /* Accelerate.framework */; };
 		00CFDF6B1138442D0091E310 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CFDF6A1138442D0091E310 /* CoreGraphics.framework */; };
-		C725E001121DAC8FFFFA18FF /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CFDF6A1138442D0091FFFF /* ImageIO.framework */; };
-		DDDDE001121DAC8FFFFADDDD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDDDDF6A1138442D0091DDDD /* MobileCoreServices.framework */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
-		C725DFFE121DAC7F00FA186B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C727C02B121B400300192073 /* CoreMedia.framework */; settings = {
-	ATTRIBUTES = (
-		Weak,
-	);
-}; };
-		C725E001121DAC8F00FA186B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C725E000121DAC8F00FA186B /* AVFoundation.framework */; settings = {
-	ATTRIBUTES = (
-		Weak,
-	);
-}; };
-		C727C02E121B400300192073 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C727C02D121B400300192073 /* CoreVideo.framework */; settings = {
-	ATTRIBUTES = (
-		Weak,
-	);
-}; };
-		C7FB19D6124BC0D70045AFD2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7FB19D5124BC0D70045AFD2 /* AudioToolbox.framework */; };
-		00A66A361965AC8800B17EB3 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00A66A351965AC8800B17EB3 /* Accelerate.framework */; };
-		00748058165D41390024B57A /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 00748057165D41390024B57A /* assets */; };
-		E38C9E0E6D7B43A7ACA8A64A /* ofxScrollView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D5B3BCB9A194510A9DDE96A /* ofxScrollView.cpp */; };
-		6CE5BB75E4AF4584A633B770 /* cocScrollView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 556238FE7C334375B0E61045 /* cocScrollView.cpp */; };
-		7559156C62D44B58A68E21A2 /* ofxScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 927C1B7DF8B44B2E8CDFC5BB /* ofxScrollView.h */; };
-		86820439FEBE4584B9DCEAF8 /* cocScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F6024F762254B51A8E098C2 /* cocScrollView.h */; };
-		88A432DC066645BFA08C78A5 /* cocCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C2673D3DC7C4B55B54064D5 /* cocCore.cpp */; };
-		52F2968CCB87498F93AE14D3 /* cocRect.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CE704538174931A421CAB0 /* cocRect.h */; };
-		989B7F6D47E147DCB3EC054F /* cocCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 18A0D814AD1643BF8C97B615 /* cocCore.h */; };
-		C22D036A48E7464FAC89B43D /* ScrollViewSample_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 47D0CE58FCD540148A8D017B /* ScrollViewSample_Prefix.pch */; };
+		4A1BEC4D64D046CBBA7C5C68 /* CinderApp_ios.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A0131A8C110437AA91024C3 /* CinderApp_ios.png */; };
+		670848421D823A2D00124084 /* cocCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670848371D823A2D00124084 /* cocCore.cpp */; };
+		670848431D823A2D00124084 /* cocMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670848391D823A2D00124084 /* cocMath.cpp */; };
+		670848441D823A2D00124084 /* cocRandom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6708483B1D823A2D00124084 /* cocRandom.cpp */; };
+		670848451D823A2D00124084 /* cocRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6708483D1D823A2D00124084 /* cocRect.cpp */; };
+		670848461D823A2D00124084 /* cocValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6708483F1D823A2D00124084 /* cocValue.cpp */; };
+		6708485B1D823A4200124084 /* ciButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670848491D823A4200124084 /* ciButton.cpp */; };
+		6708485C1D823A4200124084 /* ciButtonTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6708484B1D823A4200124084 /* ciButtonTexture.cpp */; };
+		6708485D1D823A4200124084 /* cocButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6708484D1D823A4200124084 /* cocButton.cpp */; };
+		670848601D823A4200124084 /* ciScrollView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670848551D823A4200124084 /* ciScrollView.cpp */; };
+		670848611D823A4200124084 /* cocScrollView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670848571D823A4200124084 /* cocScrollView.cpp */; };
+		670848621D823A4200124084 /* ofxScrollView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670848591D823A4200124084 /* ofxScrollView.cpp */; };
+		670848651D823AE300124084 /* Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670848631D823AE300124084 /* Grid.cpp */; };
 		9924CDB5D8F040BD8A13CD99 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B36856F6246436FB332D1BB /* LaunchScreen.xib */; };
 		99BD1681B7BD4239A6CACD69 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10D22C1F67B24F3589A7F633 /* Images.xcassets */; };
-		4A1BEC4D64D046CBBA7C5C68 /* CinderApp_ios.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A0131A8C110437AA91024C3 /* CinderApp_ios.png */; };
-		75DE8EFC1C624A8A851D6FF0 /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = 2573E0A672C4496F8802E588 /* Resources.h */; };
+		C725DFFE121DAC7F00FA186B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C727C02B121B400300192073 /* CoreMedia.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C725E001121DAC8F00FA186B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C725E000121DAC8F00FA186B /* AVFoundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C725E001121DAC8FFFFA18FF /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CFDF6A1138442D0091FFFF /* ImageIO.framework */; };
+		C727C02E121B400300192073 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C727C02D121B400300192073 /* CoreVideo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C7B9D350B72D47FCBD025CFB /* ScrollViewSampleApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CB9B1CCD1284FFC864F581C /* ScrollViewSampleApp.cpp */; };
+		C7FB19D6124BC0D70045AFD2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7FB19D5124BC0D70045AFD2 /* AudioToolbox.framework */; };
+		DDDDE001121DAC8FFFFADDDD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDDDDF6A1138442D0091DDDD /* MobileCoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		00692BCF14FF149000D0A05E /* ScrollViewSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrollViewSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0087D25412CD809F002CD69F /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		00A66A351965AC8800B17EB3 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		00CFDF6A1138442D0091E310 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		00CFDF6A1138442D0091FFFF /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		DDDDDF6A1138442D0091DDDD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		10D22C1F67B24F3589A7F633 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = Images.xcassets; sourceTree = "<group>"; };
+		1B36856F6246436FB332D1BB /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2573E0A672C4496F8802E588 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2A0131A8C110437AA91024C3 /* CinderApp_ios.png */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; name = CinderApp_ios.png; path = ../resources/CinderApp_ios.png; sourceTree = "<group>"; };
+		47D0CE58FCD540148A8D017B /* ScrollViewSample_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = ScrollViewSample_Prefix.pch; sourceTree = "<group>"; };
+		4CB9B1CCD1284FFC864F581C /* ScrollViewSampleApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ScrollViewSampleApp.cpp; path = ../src/ScrollViewSampleApp.cpp; sourceTree = "<group>"; };
+		670848361D823A2D00124084 /* cocConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocConstants.h; sourceTree = "<group>"; };
+		670848371D823A2D00124084 /* cocCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocCore.cpp; sourceTree = "<group>"; };
+		670848381D823A2D00124084 /* cocCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocCore.h; sourceTree = "<group>"; };
+		670848391D823A2D00124084 /* cocMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocMath.cpp; sourceTree = "<group>"; };
+		6708483A1D823A2D00124084 /* cocMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocMath.h; sourceTree = "<group>"; };
+		6708483B1D823A2D00124084 /* cocRandom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocRandom.cpp; sourceTree = "<group>"; };
+		6708483C1D823A2D00124084 /* cocRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocRandom.h; sourceTree = "<group>"; };
+		6708483D1D823A2D00124084 /* cocRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocRect.cpp; sourceTree = "<group>"; };
+		6708483E1D823A2D00124084 /* cocRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocRect.h; sourceTree = "<group>"; };
+		6708483F1D823A2D00124084 /* cocValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocValue.cpp; sourceTree = "<group>"; };
+		670848401D823A2D00124084 /* cocValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocValue.h; sourceTree = "<group>"; };
+		670848411D823A2D00124084 /* cocValuePlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocValuePlatform.h; sourceTree = "<group>"; };
+		670848491D823A4200124084 /* ciButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ciButton.cpp; sourceTree = "<group>"; };
+		6708484A1D823A4200124084 /* ciButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ciButton.h; sourceTree = "<group>"; };
+		6708484B1D823A4200124084 /* ciButtonTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ciButtonTexture.cpp; sourceTree = "<group>"; };
+		6708484C1D823A4200124084 /* ciButtonTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ciButtonTexture.h; sourceTree = "<group>"; };
+		6708484D1D823A4200124084 /* cocButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocButton.cpp; sourceTree = "<group>"; };
+		6708484E1D823A4200124084 /* cocButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocButton.h; sourceTree = "<group>"; };
+		670848551D823A4200124084 /* ciScrollView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ciScrollView.cpp; sourceTree = "<group>"; };
+		670848561D823A4200124084 /* ciScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ciScrollView.h; sourceTree = "<group>"; };
+		670848571D823A4200124084 /* cocScrollView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocScrollView.cpp; sourceTree = "<group>"; };
+		670848581D823A4200124084 /* cocScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocScrollView.h; sourceTree = "<group>"; };
+		670848591D823A4200124084 /* ofxScrollView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxScrollView.cpp; sourceTree = "<group>"; };
+		6708485A1D823A4200124084 /* ofxScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxScrollView.h; sourceTree = "<group>"; };
+		670848631D823AE300124084 /* Grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Grid.cpp; path = ../src/Grid.cpp; sourceTree = "<group>"; };
+		670848641D823AE300124084 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Grid.h; path = ../src/Grid.h; sourceTree = "<group>"; };
+		BA4A365916884125AE54DBF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C725E000121DAC8F00FA186B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C727C02B121B400300192073 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		C727C02D121B400300192073 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		C7FB19D5124BC0D70045AFD2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		00A66A351965AC8800B17EB3 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		00748057165D41390024B57A /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../assets; sourceTree = "<group>"; };
-		4CB9B1CCD1284FFC864F581C /* ScrollViewSampleApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../src/ScrollViewSampleApp.cpp; sourceTree = "<group>"; name = ScrollViewSampleApp.cpp; };
-		2573E0A672C4496F8802E588 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../include/Resources.h; sourceTree = "<group>"; name = Resources.h; };
-		2A0131A8C110437AA91024C3 /* CinderApp_ios.png */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = ../resources/CinderApp_ios.png; sourceTree = "<group>"; name = CinderApp_ios.png; };
-		10D22C1F67B24F3589A7F633 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = Images.xcassets; sourceTree = "<group>"; name = Images.xcassets; };
-		1B36856F6246436FB332D1BB /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = LaunchScreen.xib; sourceTree = "<group>"; name = LaunchScreen.xib; };
-		BA4A365916884125AE54DBF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; name = Info.plist; };
-		47D0CE58FCD540148A8D017B /* ScrollViewSample_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = ScrollViewSample_Prefix.pch; sourceTree = "<group>"; name = ScrollViewSample_Prefix.pch; };
-		18A0D814AD1643BF8C97B615 /* cocCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "../../../../../_cinder/Cinder.git-glNext/blocks/coc-core/src/cocCore.h"; sourceTree = "<group>"; name = cocCore.h; };
-		C3CE704538174931A421CAB0 /* cocRect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "../../../../../_cinder/Cinder.git-glNext/blocks/coc-core/src/cocRect.h"; sourceTree = "<group>"; name = cocRect.h; };
-		3C2673D3DC7C4B55B54064D5 /* cocCore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = "../../../../../_cinder/Cinder.git-glNext/blocks/coc-core/src/cocCore.cpp"; sourceTree = "<group>"; name = cocCore.cpp; };
-		7F6024F762254B51A8E098C2 /* cocScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "../../../../../_cinder/Cinder.git-glNext/blocks/coc-scrollview/src/cocScrollView.h"; sourceTree = "<group>"; name = cocScrollView.h; };
-		927C1B7DF8B44B2E8CDFC5BB /* ofxScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "../../../../../_cinder/Cinder.git-glNext/blocks/coc-scrollview/src/ofxScrollView.h"; sourceTree = "<group>"; name = ofxScrollView.h; };
-		556238FE7C334375B0E61045 /* cocScrollView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = "../../../../../_cinder/Cinder.git-glNext/blocks/coc-scrollview/src/cocScrollView.cpp"; sourceTree = "<group>"; name = cocScrollView.cpp; };
-		4D5B3BCB9A194510A9DDE96A /* ofxScrollView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = "../../../../../_cinder/Cinder.git-glNext/blocks/coc-scrollview/src/ofxScrollView.cpp"; sourceTree = "<group>"; name = ofxScrollView.cpp; };
+		DDDDDF6A1138442D0091DDDD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,50 +152,88 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BA23AF5F45D74CEFA2021F82 /* src */ = {
+		00692BD914FF149000D0A05E /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				18A0D814AD1643BF8C97B615 /* cocCore.h */,
-				C3CE704538174931A421CAB0 /* cocRect.h */,
-				3C2673D3DC7C4B55B54064D5 /* cocCore.cpp */,
+				4CB9B1CCD1284FFC864F581C /* ScrollViewSampleApp.cpp */,
+				670848631D823AE300124084 /* Grid.cpp */,
+				670848641D823AE300124084 /* Grid.h */,
 			);
-			name = src;
+			name = Source;
 			sourceTree = "<group>";
 		};
-		A9FBEEF358EF4237B6205B78 /* CoC-Core */ = {
+		00692BD914FF149000D0FFFF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BA23AF5F45D74CEFA2021F82 /* src */,
+				2A0131A8C110437AA91024C3 /* CinderApp_ios.png */,
+				10D22C1F67B24F3589A7F633 /* Images.xcassets */,
+				1B36856F6246436FB332D1BB /* LaunchScreen.xib */,
+				BA4A365916884125AE54DBF2 /* Info.plist */,
 			);
-			name = "CoC-Core";
+			name = Resources;
 			sourceTree = "<group>";
 		};
-		43230CE0EDB640FDB6AA01B0 /* src */ = {
+		670848341D823A0A00124084 /* coc-ui */ = {
 			isa = PBXGroup;
 			children = (
-				7F6024F762254B51A8E098C2 /* cocScrollView.h */,
-				927C1B7DF8B44B2E8CDFC5BB /* ofxScrollView.h */,
-				556238FE7C334375B0E61045 /* cocScrollView.cpp */,
-				4D5B3BCB9A194510A9DDE96A /* ofxScrollView.cpp */,
+				670848471D823A4200124084 /* src */,
 			);
-			name = src;
+			name = "coc-ui";
+			path = ../../..;
 			sourceTree = "<group>";
 		};
-		4A312C24DF984F5690D11B1D /* CoC-ScrollView */ = {
+		670848351D823A2D00124084 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				43230CE0EDB640FDB6AA01B0 /* src */,
+				670848361D823A2D00124084 /* cocConstants.h */,
+				670848371D823A2D00124084 /* cocCore.cpp */,
+				670848381D823A2D00124084 /* cocCore.h */,
+				670848391D823A2D00124084 /* cocMath.cpp */,
+				6708483A1D823A2D00124084 /* cocMath.h */,
+				6708483B1D823A2D00124084 /* cocRandom.cpp */,
+				6708483C1D823A2D00124084 /* cocRandom.h */,
+				6708483D1D823A2D00124084 /* cocRect.cpp */,
+				6708483E1D823A2D00124084 /* cocRect.h */,
+				6708483F1D823A2D00124084 /* cocValue.cpp */,
+				670848401D823A2D00124084 /* cocValue.h */,
+				670848411D823A2D00124084 /* cocValuePlatform.h */,
 			);
-			name = "CoC-ScrollView";
+			path = src;
 			sourceTree = "<group>";
 		};
-		99692BD914FF149000DFFFFF /* Blocks */ = {
+		670848471D823A4200124084 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				A9FBEEF358EF4237B6205B78 /* CoC-Core */,
-				4A312C24DF984F5690D11B1D /* CoC-ScrollView */,
+				670848481D823A4200124084 /* button */,
+				670848541D823A4200124084 /* scrollview */,
 			);
-			name = Blocks;
+			path = src;
+			sourceTree = "<group>";
+		};
+		670848481D823A4200124084 /* button */ = {
+			isa = PBXGroup;
+			children = (
+				670848491D823A4200124084 /* ciButton.cpp */,
+				6708484A1D823A4200124084 /* ciButton.h */,
+				6708484B1D823A4200124084 /* ciButtonTexture.cpp */,
+				6708484C1D823A4200124084 /* ciButtonTexture.h */,
+				6708484D1D823A4200124084 /* cocButton.cpp */,
+				6708484E1D823A4200124084 /* cocButton.h */,
+			);
+			path = button;
+			sourceTree = "<group>";
+		};
+		670848541D823A4200124084 /* scrollview */ = {
+			isa = PBXGroup;
+			children = (
+				670848551D823A4200124084 /* ciScrollView.cpp */,
+				670848561D823A4200124084 /* ciScrollView.h */,
+				670848571D823A4200124084 /* cocScrollView.cpp */,
+				670848581D823A4200124084 /* cocScrollView.h */,
+				670848591D823A4200124084 /* ofxScrollView.cpp */,
+				6708485A1D823A4200124084 /* ofxScrollView.h */,
+			);
+			path = scrollview;
 			sourceTree = "<group>";
 		};
 		99692BD914FF149000D0A05F /* Headers */ = {
@@ -199,24 +245,22 @@
 			name = Headers;
 			sourceTree = "<group>";
 		};
-		00692BD914FF149000D0A05E /* Source */ = {
+		99692BD914FF149000DFFFFF /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
-				4CB9B1CCD1284FFC864F581C /* ScrollViewSampleApp.cpp */,
+				A9FBEEF358EF4237B6205B78 /* coc-core */,
+				670848341D823A0A00124084 /* coc-ui */,
 			);
-			name = Source;
+			name = Blocks;
 			sourceTree = "<group>";
 		};
-		00692BD914FF149000D0FFFF /* Resources */ = {
+		A9FBEEF358EF4237B6205B78 /* coc-core */ = {
 			isa = PBXGroup;
 			children = (
-				00748057165D41390024B57A /* assets */,
-				2A0131A8C110437AA91024C3 /* CinderApp_ios.png */,
-				10D22C1F67B24F3589A7F633 /* Images.xcassets */,
-				1B36856F6246436FB332D1BB /* LaunchScreen.xib */,
-				BA4A365916884125AE54DBF2 /* Info.plist */,
+				670848351D823A2D00124084 /* src */,
 			);
-			name = Resources;
+			name = "coc-core";
+			path = "../../../../coc-core";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +288,8 @@
 /* Begin PBXProject section */
 		00692BC614FF149000D0A05E /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = 00692BC914FF149000D0A05E /* Build configuration list for PBXProject "ScrollViewSample" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -266,7 +312,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00748058165D41390024B57A /* assets in Resources */,
 				4A1BEC4D64D046CBBA7C5C68 /* CinderApp_ios.png in Resources */,
 				99BD1681B7BD4239A6CACD69 /* Images.xcassets in Resources */,
 				9924CDB5D8F040BD8A13CD99 /* LaunchScreen.xib in Resources */,
@@ -280,10 +325,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				670848441D823A2D00124084 /* cocRandom.cpp in Sources */,
+				6708485B1D823A4200124084 /* ciButton.cpp in Sources */,
+				670848601D823A4200124084 /* ciScrollView.cpp in Sources */,
+				670848421D823A2D00124084 /* cocCore.cpp in Sources */,
+				670848621D823A4200124084 /* ofxScrollView.cpp in Sources */,
+				6708485D1D823A4200124084 /* cocButton.cpp in Sources */,
 				C7B9D350B72D47FCBD025CFB /* ScrollViewSampleApp.cpp in Sources */,
-				88A432DC066645BFA08C78A5 /* cocCore.cpp in Sources */,
-				6CE5BB75E4AF4584A633B770 /* cocScrollView.cpp in Sources */,
-				E38C9E0E6D7B43A7ACA8A64A /* ofxScrollView.cpp in Sources */,
+				670848461D823A2D00124084 /* cocValue.cpp in Sources */,
+				670848651D823AE300124084 /* Grid.cpp in Sources */,
+				6708485C1D823A4200124084 /* ciButtonTexture.cpp in Sources */,
+				670848451D823A2D00124084 /* cocRect.cpp in Sources */,
+				670848431D823A2D00124084 /* cocMath.cpp in Sources */,
+				670848611D823A4200124084 /* cocScrollView.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,14 +347,18 @@
 		00692BF314FF149000D0A05E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage";
-				DEAD_CODE_STRIPPING = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv7,
+					arm64,
+				);
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CINDER_PATH = "../../../../../_cinder/Cinder.git-glNext";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
-				ARCHS = "armv7 arm64";
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -313,11 +371,10 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				CINDER_PATH = "../../../../../_cinder/Cinder.git-glNext";
-				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\"";
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include";
 			};
 			name = Debug;
@@ -325,14 +382,15 @@
 		00692BF414FF149000D0A05E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage";
-				DEAD_CODE_STRIPPING = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
-				CLANG_CXX_LIBRARY = "libc++";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CINDER_PATH = "../../../../../_cinder/Cinder.git-glNext";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"NDEBUG=1",
@@ -342,25 +400,28 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				CINDER_PATH = "../../../../../_cinder/Cinder.git-glNext";
-				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\"";
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		00692BF614FF149000D0A05E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CINDER_PATH = ../../../../../../Cinder.git;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ScrollViewSample_Prefix.pch";
-				INFOPLIST_FILE = "Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
+				GCC_PREFIX_HEADER = ScrollViewSample_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					COC_CI,
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Info.plist;
 				"OTHER_LDFLAGS[sdk=iphoneos*][arch=*]" = (
 					"\"$(CINDER_PATH)/lib/libcinder-iphone_d.a\"",
 					"-lz",
@@ -369,17 +430,23 @@
 					"\"$(CINDER_PATH)/lib/libcinder-iphone-sim_d.a\"",
 					"-lz",
 				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		00692BF714FF149000D0A05E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CINDER_PATH = ../../../../../../Cinder.git;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ScrollViewSample_Prefix.pch";
-				INFOPLIST_FILE = "Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
+				GCC_PREFIX_HEADER = ScrollViewSample_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
+					COC_CI,
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Info.plist;
 				"OTHER_LDFLAGS[sdk=iphoneos*][arch=*]" = (
 					"\"$(CINDER_PATH)/lib/libcinder-iphone.a\"",
 					"-lz",
@@ -388,6 +455,8 @@
 					"\"$(CINDER_PATH)/lib/libcinder-iphone-sim.a\"",
 					"-lz",
 				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
