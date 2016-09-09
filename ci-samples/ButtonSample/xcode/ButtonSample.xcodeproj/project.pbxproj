@@ -16,15 +16,18 @@
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995581B128DF400A5C623 /* IOKit.framework */; };
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
-		1B5893C11F6F4C5FA069FD63 /* cocCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48563E66B70543278288674D /* cocCore.cpp */; };
-		2375E3401D584A38A3A96309 /* cocRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49E419676D3B420F951EF16D /* cocRect.cpp */; };
 		25D22275940E4C248F26D072 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 51FF7D847BC4464BBC489B12 /* CinderApp.icns */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
-		656C13E401F941918F1494EB /* cocMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F4A231010164CC2B5FC60AF /* cocMath.cpp */; };
-		7FA69F3B3F0C4C279E9D3C1E /* cocValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1B6902F2B5E4F40B39BD1C6 /* cocValue.cpp */; };
+		670848731D823D8C00124084 /* cocCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670848681D823D8C00124084 /* cocCore.cpp */; };
+		670848741D823D8C00124084 /* cocMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6708486A1D823D8C00124084 /* cocMath.cpp */; };
+		670848751D823D8C00124084 /* cocRandom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6708486C1D823D8C00124084 /* cocRandom.cpp */; };
+		670848761D823D8C00124084 /* cocRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6708486E1D823D8C00124084 /* cocRect.cpp */; };
+		670848771D823D8C00124084 /* cocValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670848701D823D8C00124084 /* cocValue.cpp */; };
+		6708488C1D823D9900124084 /* ciButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6708487A1D823D9900124084 /* ciButton.cpp */; };
+		6708488D1D823D9900124084 /* ciButtonTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6708487C1D823D9900124084 /* ciButtonTexture.cpp */; };
+		6708488E1D823D9900124084 /* cocButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6708487E1D823D9900124084 /* cocButton.cpp */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		95DD89DDDBC84285AA83683E /* ButtonSampleApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0FA7ECE475E4ADF97F33327 /* ButtonSampleApp.cpp */; };
-		F629D6B793434746B53A235F /* cocRandom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95E9E3874FCC40BA97F1EE71 /* cocRandom.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,27 +41,33 @@
 		00B995581B128DF400A5C623 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		00B995591B128DF400A5C623 /* IOSurface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOSurface.framework; path = System/Library/Frameworks/IOSurface.framework; sourceTree = SDKROOT; };
 		0A23FDFA236540168B42A783 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
-		0F4A231010164CC2B5FC60AF /* cocMath.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = cocMath.cpp; path = "../../../../coc-core/src/cocMath.cpp"; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		11594F409C7E4001B150DCE6 /* ButtonSample_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = ButtonSample_Prefix.pch; sourceTree = "<group>"; };
-		1220CCC72CB44F76B87DAC20 /* cocMath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cocMath.h; path = "../../../../coc-core/src/cocMath.h"; sourceTree = "<group>"; };
-		2201408FA98A43B38F06B697 /* cocValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cocValue.h; path = "../../../../coc-core/src/cocValue.h"; sourceTree = "<group>"; };
-		2733323792524C21A568BE2D /* cocRandom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cocRandom.h; path = "../../../../coc-core/src/cocRandom.h"; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		48563E66B70543278288674D /* cocCore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = cocCore.cpp; path = "../../../../coc-core/src/cocCore.cpp"; sourceTree = "<group>"; };
-		49E419676D3B420F951EF16D /* cocRect.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = cocRect.cpp; path = "../../../../coc-core/src/cocRect.cpp"; sourceTree = "<group>"; };
 		51FF7D847BC4464BBC489B12 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
-		5803662C8E6A413581929A0B /* cocConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cocConstants.h; path = "../../../../coc-core/src/cocConstants.h"; sourceTree = "<group>"; };
-		75115BC0B43B485383ECB044 /* cocCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cocCore.h; path = "../../../../coc-core/src/cocCore.h"; sourceTree = "<group>"; };
+		670848671D823D8C00124084 /* cocConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocConstants.h; sourceTree = "<group>"; };
+		670848681D823D8C00124084 /* cocCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocCore.cpp; sourceTree = "<group>"; };
+		670848691D823D8C00124084 /* cocCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocCore.h; sourceTree = "<group>"; };
+		6708486A1D823D8C00124084 /* cocMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocMath.cpp; sourceTree = "<group>"; };
+		6708486B1D823D8C00124084 /* cocMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocMath.h; sourceTree = "<group>"; };
+		6708486C1D823D8C00124084 /* cocRandom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocRandom.cpp; sourceTree = "<group>"; };
+		6708486D1D823D8C00124084 /* cocRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocRandom.h; sourceTree = "<group>"; };
+		6708486E1D823D8C00124084 /* cocRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocRect.cpp; sourceTree = "<group>"; };
+		6708486F1D823D8C00124084 /* cocRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocRect.h; sourceTree = "<group>"; };
+		670848701D823D8C00124084 /* cocValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocValue.cpp; sourceTree = "<group>"; };
+		670848711D823D8C00124084 /* cocValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocValue.h; sourceTree = "<group>"; };
+		670848721D823D8C00124084 /* cocValuePlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocValuePlatform.h; sourceTree = "<group>"; };
+		6708487A1D823D9900124084 /* ciButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ciButton.cpp; sourceTree = "<group>"; };
+		6708487B1D823D9900124084 /* ciButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ciButton.h; sourceTree = "<group>"; };
+		6708487C1D823D9900124084 /* ciButtonTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ciButtonTexture.cpp; sourceTree = "<group>"; };
+		6708487D1D823D9900124084 /* ciButtonTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ciButtonTexture.h; sourceTree = "<group>"; };
+		6708487E1D823D9900124084 /* cocButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocButton.cpp; sourceTree = "<group>"; };
+		6708487F1D823D9900124084 /* cocButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocButton.h; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ButtonSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ButtonSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		90733F8934FA432D9267C3C0 /* cocValuePlatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cocValuePlatform.h; path = "../../../../coc-core/src/cocValuePlatform.h"; sourceTree = "<group>"; };
-		95E9E3874FCC40BA97F1EE71 /* cocRandom.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = cocRandom.cpp; path = "../../../../coc-core/src/cocRandom.cpp"; sourceTree = "<group>"; };
 		C01B8EE13D574B66A523FB5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0FA7ECE475E4ADF97F33327 /* ButtonSampleApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ButtonSampleApp.cpp; path = ../src/ButtonSampleApp.cpp; sourceTree = "<group>"; };
-		D832315DA8C74D05BF52C76B /* cocRect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cocRect.h; path = "../../../../coc-core/src/cocRect.h"; sourceTree = "<group>"; };
-		E1B6902F2B5E4F40B39BD1C6 /* cocValue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = cocValue.cpp; path = "../../../../coc-core/src/cocValue.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,8 +95,8 @@
 		01B97315FEAEA392516A2CEA /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
-				3FFAC72BAFE541BAB3F9EF59 /* CoC-Core */,
-				670ABD241D82380C005AB66B /* CoC-UI */,
+				3FFAC72BAFE541BAB3F9EF59 /* coc-core */,
+				670ABD241D82380C005AB66B /* coc-ui */,
 			);
 			name = Blocks;
 			sourceTree = "<group>";
@@ -175,38 +184,62 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3FFAC72BAFE541BAB3F9EF59 /* CoC-Core */ = {
+		3FFAC72BAFE541BAB3F9EF59 /* coc-core */ = {
 			isa = PBXGroup;
 			children = (
-				6C02CFD75A56478C85483E5F /* src */,
+				670848661D823D8C00124084 /* src */,
 			);
-			name = "CoC-Core";
+			name = "coc-core";
+			path = "../../../../coc-core";
 			sourceTree = "<group>";
 		};
-		670ABD241D82380C005AB66B /* CoC-UI */ = {
+		670848661D823D8C00124084 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				670848671D823D8C00124084 /* cocConstants.h */,
+				670848681D823D8C00124084 /* cocCore.cpp */,
+				670848691D823D8C00124084 /* cocCore.h */,
+				6708486A1D823D8C00124084 /* cocMath.cpp */,
+				6708486B1D823D8C00124084 /* cocMath.h */,
+				6708486C1D823D8C00124084 /* cocRandom.cpp */,
+				6708486D1D823D8C00124084 /* cocRandom.h */,
+				6708486E1D823D8C00124084 /* cocRect.cpp */,
+				6708486F1D823D8C00124084 /* cocRect.h */,
+				670848701D823D8C00124084 /* cocValue.cpp */,
+				670848711D823D8C00124084 /* cocValue.h */,
+				670848721D823D8C00124084 /* cocValuePlatform.h */,
 			);
-			name = "CoC-UI";
+			path = src;
 			sourceTree = "<group>";
 		};
-		6C02CFD75A56478C85483E5F /* src */ = {
+		670848781D823D9900124084 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				5803662C8E6A413581929A0B /* cocConstants.h */,
-				48563E66B70543278288674D /* cocCore.cpp */,
-				75115BC0B43B485383ECB044 /* cocCore.h */,
-				0F4A231010164CC2B5FC60AF /* cocMath.cpp */,
-				1220CCC72CB44F76B87DAC20 /* cocMath.h */,
-				95E9E3874FCC40BA97F1EE71 /* cocRandom.cpp */,
-				2733323792524C21A568BE2D /* cocRandom.h */,
-				49E419676D3B420F951EF16D /* cocRect.cpp */,
-				D832315DA8C74D05BF52C76B /* cocRect.h */,
-				E1B6902F2B5E4F40B39BD1C6 /* cocValue.cpp */,
-				2201408FA98A43B38F06B697 /* cocValue.h */,
-				90733F8934FA432D9267C3C0 /* cocValuePlatform.h */,
+				670848791D823D9900124084 /* button */,
 			);
-			name = src;
+			path = src;
+			sourceTree = "<group>";
+		};
+		670848791D823D9900124084 /* button */ = {
+			isa = PBXGroup;
+			children = (
+				6708487A1D823D9900124084 /* ciButton.cpp */,
+				6708487B1D823D9900124084 /* ciButton.h */,
+				6708487C1D823D9900124084 /* ciButtonTexture.cpp */,
+				6708487D1D823D9900124084 /* ciButtonTexture.h */,
+				6708487E1D823D9900124084 /* cocButton.cpp */,
+				6708487F1D823D9900124084 /* cocButton.h */,
+			);
+			path = button;
+			sourceTree = "<group>";
+		};
+		670ABD241D82380C005AB66B /* coc-ui */ = {
+			isa = PBXGroup;
+			children = (
+				670848781D823D9900124084 /* src */,
+			);
+			name = "coc-ui";
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,12 +305,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				670848751D823D8C00124084 /* cocRandom.cpp in Sources */,
+				6708488C1D823D9900124084 /* ciButton.cpp in Sources */,
+				670848731D823D8C00124084 /* cocCore.cpp in Sources */,
+				6708488E1D823D9900124084 /* cocButton.cpp in Sources */,
 				95DD89DDDBC84285AA83683E /* ButtonSampleApp.cpp in Sources */,
-				1B5893C11F6F4C5FA069FD63 /* cocCore.cpp in Sources */,
-				656C13E401F941918F1494EB /* cocMath.cpp in Sources */,
-				F629D6B793434746B53A235F /* cocRandom.cpp in Sources */,
-				2375E3401D584A38A3A96309 /* cocRect.cpp in Sources */,
-				7FA69F3B3F0C4C279E9D3C1E /* cocValue.cpp in Sources */,
+				670848771D823D8C00124084 /* cocValue.cpp in Sources */,
+				6708488D1D823D9900124084 /* ciButtonTexture.cpp in Sources */,
+				670848761D823D8C00124084 /* cocRect.cpp in Sources */,
+				670848741D823D8C00124084 /* cocMath.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
