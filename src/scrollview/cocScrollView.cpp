@@ -108,18 +108,6 @@ float ScrollView::getContentDiagonal() const {
     return glm::length(contentSize);
 }
 
-glm::vec2 ScrollView::getContentPointAtScreenPoint(const glm::vec2 & screenPoint) const {
-    glm::vec2 windowPoint = screenPoint - windowPos;
-    return getContentPointAtWindowPoint(windowPoint);
-}
-
-glm::vec2 ScrollView::getContentPointAtWindowPoint(const glm::vec2 & windowPoint) const {
-    glm::vec2 contentPoint;
-    contentPoint.x = coc::map(windowPoint.x, scrollPos.x, scrollPos.x + scrollSize.x, 0, contentSize.x, true);
-    contentPoint.y = coc::map(windowPoint.y, scrollPos.y, scrollPos.y + scrollSize.y, 0, contentSize.y, true);
-    return contentPoint;
-}
-
 //--------------------------------------------------------------
 void ScrollView::setScrollToFitWindow(float time) {
     actions.push_back( Action::create() );
@@ -204,6 +192,31 @@ glm::vec2 ScrollView::getScrollPositionNormalized() const {
     pos.x = coc::map(scrollPos.x, boundsLR.x, boundsUL.x, 0.0, 1.0);
     pos.y = coc::map(scrollPos.y, boundsLR.y, boundsUL.y, 0.0, 1.0);
     return pos;
+}
+
+//--------------------------------------------------------------
+glm::vec2 ScrollView::getContentPointAtWindowPoint(const glm::vec2 & windowPoint) const {
+    glm::vec2 contentPoint;
+    contentPoint.x = coc::map(windowPoint.x, scrollPos.x, scrollPos.x + scrollSize.x, 0, contentSize.x, true);
+    contentPoint.y = coc::map(windowPoint.y, scrollPos.y, scrollPos.y + scrollSize.y, 0, contentSize.y, true);
+    return contentPoint;
+}
+
+glm::vec2 ScrollView::getContentPointAtScreenPoint(const glm::vec2 & screenPoint) const {
+    glm::vec2 windowPoint = screenPoint - windowPos;
+    return getContentPointAtWindowPoint(windowPoint);
+}
+
+glm::vec2 ScrollView::getWindowPointAtContentPoint(const glm::vec2 & contentPoint) const {
+    glm::vec2 windowPoint;
+    windowPoint.x = coc::map(contentPoint.x, 0, contentSize.x, scrollPos.x, scrollPos.x + scrollSize.x, true);
+    windowPoint.y = coc::map(contentPoint.y, 0, contentSize.y, scrollPos.y, scrollPos.y + scrollSize.y, true);
+    return windowPoint;
+}
+
+glm::vec2 ScrollView::getScreenPointAtContentPoint(const glm::vec2 & contentPoint) const {
+    glm::vec2 screenPoint = getWindowPointAtContentPoint(contentPoint) + windowPos;
+    return screenPoint;
 }
 
 //--------------------------------------------------------------
