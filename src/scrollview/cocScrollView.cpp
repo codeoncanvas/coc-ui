@@ -37,12 +37,12 @@ ScrollView::~ScrollView() {
 
 //--------------------------------------------------------------
 void ScrollView::setWindowPos(const glm::vec2 & value) {
-    bWindowPosChanged = (windowPos != value);
+    bWindowPosChanged = bWindowPosChanged || (windowPos != value);
     windowPos = value;
 }
 
 void ScrollView::setWindowSize(const glm::vec2 & value) {
-    bWindowSizeChanged = (windowSize != value);
+    bWindowSizeChanged = bWindowSizeChanged || (windowSize != value);
     windowSize = value;
 }
 
@@ -74,12 +74,12 @@ float ScrollView::getWindowDiagonal() const {
 
 //--------------------------------------------------------------
 void ScrollView::setContentPos(const glm::vec2 & value) {
-    bContentPosChanged = (contentPos != value);
+    bContentPosChanged = bContentPosChanged || (contentPos != value);
     contentPos = value;
 }
 
 void ScrollView::setContentSize(const glm::vec2 & value) {
-    bContentSizeChanged = (contentSize != value);
+    bContentSizeChanged = bContentSizeChanged || (contentSize != value);
     contentSize = value;
 }
 
@@ -273,7 +273,7 @@ const glm::vec2 & ScrollView::getBounceEasing() const {
 
 //--------------------------------------------------------------
 void ScrollView::setEnabled(bool value) {
-    bEnabledChanged = bEnabled != value;
+    bEnabledChanged = bEnabledChanged || (bEnabled != value);
     bEnabled = value;
 }
 
