@@ -104,11 +104,15 @@ public:
     const glm::vec2 & getScrollPos() const;
     const glm::vec2 & getScrollSize() const;
     coc::Rect getScrollRect() const;
+    coc::Rect getScrollRectForWindowFill() const;
+    coc::Rect getScrollRectForWindowFit() const;
     glm::vec2 getScrollBoundsUpperLeft() const;
     glm::vec2 getScrollBoundsUpperLeft(const glm::vec2 & scrollSize) const;
     glm::vec2 getScrollBoundsLowerRight() const;
     glm::vec2 getScrollBoundsLowerRight(const glm::vec2 & scrollSize) const;
     glm::vec2 getScrollPositionNormalized() const;
+    float getScrollScale() const;
+    float getScrollScale(const glm::vec2 & scrollSize) const;
     
     glm::vec2 getContentPointAtWindowPoint(const glm::vec2 & windowPoint) const;
     glm::vec2 getContentPointAtScreenPoint(const glm::vec2 & screenPoint) const;
@@ -147,6 +151,9 @@ public:
     
     void setDoubleTapZoomRate(float value);
     float getDoubleTapZoomRate() const;
+    
+    void setDoubleTapZoomStops(std::vector<float> scales);
+    std::vector<float> getDoubleTapZoomStops() const;
     
     const glm::mat4x4 & getModelMatrix() const;
     const float * getModelMatrixPtr() const;
@@ -209,6 +216,8 @@ protected:
     float doubleTapTimeLimit;
     float doubleTapDistLimit;
     float doubleTapZoomRate;
+    std::vector<float> doubleTapZoomStops;
+    unsigned int doubleTapZoomStopIndex;
     
     glm::mat4 modelMatrix;
     

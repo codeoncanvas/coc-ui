@@ -27,7 +27,8 @@ bounceEasing(1.0, 1.0),
 bDoubleTapEnabled(true),
 doubleTapTimeLimit(0.25),
 doubleTapDistLimit(22),
-doubleTapZoomRate(2.0) {
+doubleTapZoomRate(2.0),
+doubleTapZoomStopIndex(0) {
     //
 }
 
@@ -145,6 +146,26 @@ coc::Rect ScrollView::getScrollRect() const {
     return rect;
 }
 
+coc::Rect ScrollView::getScrollRectForWindowFill() const {
+    coc::Rect windowSizeRect;
+    windowSizeRect.setW(windowSize.x);
+    windowSizeRect.setH(windowSize.y);
+    
+    coc::Rect scrollRect = getContentRect();
+    scrollRect.fitInto(windowSizeRect, true);
+    return scrollRect;
+}
+
+coc::Rect ScrollView::getScrollRectForWindowFit() const {
+    coc::Rect windowSizeRect;
+    windowSizeRect.setW(windowSize.x);
+    windowSizeRect.setH(windowSize.y);
+    
+    coc::Rect scrollRect = getContentRect();
+    scrollRect.fitInto(windowSizeRect, false);
+    return scrollRect;
+}
+
 glm::vec2 ScrollView::getScrollBoundsUpperLeft() const {
     return getScrollBoundsUpperLeft(scrollSize);
 }
@@ -192,6 +213,15 @@ glm::vec2 ScrollView::getScrollPositionNormalized() const {
     pos.x = coc::map(scrollPos.x, boundsLR.x, boundsUL.x, 0.0, 1.0);
     pos.y = coc::map(scrollPos.y, boundsLR.y, boundsUL.y, 0.0, 1.0);
     return pos;
+}
+
+float ScrollView::getScrollScale() const {
+    return getScrollScale(scrollSize);
+}
+
+float ScrollView::getScrollScale(const glm::vec2 & scrollSize) const {
+    float scrollScale = scrollSize.x / contentSize.x;
+    return scrollScale;
 }
 
 //--------------------------------------------------------------
@@ -315,6 +345,16 @@ void ScrollView::setDoubleTapZoomRate(float value) {
 
 float ScrollView::getDoubleTapZoomRate() const {
     return doubleTapZoomRate;
+}
+
+//--------------------------------------------------------------
+void ScrollView::setDoubleTapZoomStops(std::vector<float> scales) {
+    doubleTapZoomStops = scales;
+    doubleTapZoomStopIndex = 0;
+}
+
+std::vector<float> ScrollView::getDoubleTapZoomStops() const {
+    return doubleTapZoomStops;
 }
 
 //--------------------------------------------------------------
@@ -502,11 +542,12 @@ void ScrollView::update(float timeDelta) {
             action->scrollStartPos = scrollPos;
             action->scrollStartSize = scrollSize;
             
-            coc::Rect windowSizeRect;
-            windowSizeRect.setW(windowSize.x);
-            windowSizeRect.setH(windowSize.y);
-            coc::Rect scrollRect = contentRect;
-            scrollRect.fitInto(windowSizeRect, bWindowFill);
+            coc::Rect scrollRect;
+            if(bWindowFill) {
+                scrollRect = getScrollRectForWindowFill();
+            } else {
+                scrollRect = getScrollRectForWindowFit();
+            }
             
             action->scrollFinishPos.x = scrollRect.getX();
             action->scrollFinishPos.y = scrollRect.getY();
@@ -521,57 +562,50 @@ void ScrollView::update(float timeDelta) {
             action->scrollStartPos = scrollPos;
             action->scrollStartSize = scrollSize;
             
-            float scrollScale = scrollSize.x / contentSize.x;
-            if(scrollScale == 1.0) {
-
-                coc::Rect windowSizeRect;
-                windowSizeRect.setW(windowSize.x);
-                windowSizeRect.setH(windowSize.y);
-                coc::Rect scrollRect = contentRect;
-                scrollRect.fitInto(windowSizeRect, false);
-                
-                action->scrollFinishPos.x = scrollRect.getX();
-                action->scrollFinishPos.y = scrollRect.getY();
-                action->scrollFinishSize.x = scrollRect.getW();
-                action->scrollFinishSize.y = scrollRect.getH();
-            
-            } else {
-            
-                float zoomScale = 1.0;
-            
-                const glm::vec2 & windowPoint = action->windowHitPoint;
-                glm::vec2 contentPoint = getContentPointAtWindowPoint(windowPoint);
-                
-                glm::vec2 p0(0, 0);
-                glm::vec2 p1(contentSize.x, contentSize.y);
-                p0 -= contentPoint;
-                p1 -= contentPoint;
-                p0 *= zoomScale;
-                p1 *= zoomScale;
-                p0 += windowPoint;
-                p1 += windowPoint;
-                
-                glm::vec2 scrollFinishPos = p0;
-                glm::vec2 scrollFinishSize = p1 - p0;
-                
-                glm::vec2 boundsUL = getScrollBoundsUpperLeft(scrollFinishSize);
-                glm::vec2 boundsLR = getScrollBoundsLowerRight(scrollFinishSize);
-                
-                if(scrollFinishPos.x > boundsLR.x) { // beyond left bounds.
-                    scrollFinishPos.x = boundsLR.x;
-                } else if(scrollFinishPos.x < boundsUL.x) { // beyond right bounds.
-                    scrollFinishPos.x = boundsUL.x;
+            float zoomScale = getScrollScale();
+            if(doubleTapZoomStops.size() > 0) { // use zoom stops if available.
+                doubleTapZoomStopIndex = (doubleTapZoomStopIndex + 1) % doubleTapZoomStops.size();
+                zoomScale = doubleTapZoomStops[doubleTapZoomStopIndex];
+            } else {                            // no zoom stops specified, toggle default zoom.
+                if(zoomScale == 1.0) {
+                    zoomScale = getScrollScale(getScrollRectForWindowFit().getSize());
+                } else {
+                    zoomScale = 1.0;
                 }
-
-                if(scrollFinishPos.y > boundsLR.y) { // beyond top bounds.
-                    scrollFinishPos.y = boundsLR.y;
-                } else if(scrollFinishPos.y < boundsUL.y) { // beyond bottom bounds.
-                    scrollFinishPos.y = boundsUL.y;
-                }
-
-                action->scrollFinishPos = scrollFinishPos;
-                action->scrollFinishSize = scrollFinishSize;
             }
+        
+            const glm::vec2 & windowPoint = action->windowHitPoint;
+            glm::vec2 contentPoint = getContentPointAtWindowPoint(windowPoint);
+            
+            glm::vec2 p0(0, 0);
+            glm::vec2 p1(contentSize.x, contentSize.y);
+            p0 -= contentPoint;
+            p1 -= contentPoint;
+            p0 *= zoomScale;
+            p1 *= zoomScale;
+            p0 += windowPoint;
+            p1 += windowPoint;
+            
+            glm::vec2 scrollFinishPos = p0;
+            glm::vec2 scrollFinishSize = p1 - p0;
+            
+            glm::vec2 boundsUL = getScrollBoundsUpperLeft(scrollFinishSize);
+            glm::vec2 boundsLR = getScrollBoundsLowerRight(scrollFinishSize);
+            
+            if(scrollFinishPos.x > boundsLR.x) { // beyond left bounds.
+                scrollFinishPos.x = boundsLR.x;
+            } else if(scrollFinishPos.x < boundsUL.x) { // beyond right bounds.
+                scrollFinishPos.x = boundsUL.x;
+            }
+
+            if(scrollFinishPos.y > boundsLR.y) { // beyond top bounds.
+                scrollFinishPos.y = boundsLR.y;
+            } else if(scrollFinishPos.y < boundsUL.y) { // beyond bottom bounds.
+                scrollFinishPos.y = boundsUL.y;
+            }
+
+            action->scrollFinishPos = scrollFinishPos;
+            action->scrollFinishSize = scrollFinishSize;
             
             float diagStart = glm::length(action->scrollStartSize);
             float diagFinish = glm::length(action->scrollFinishSize);
