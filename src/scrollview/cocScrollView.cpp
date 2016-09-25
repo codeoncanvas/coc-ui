@@ -227,8 +227,8 @@ float ScrollView::getScrollScale(const glm::vec2 & scrollSize) const {
 //--------------------------------------------------------------
 glm::vec2 ScrollView::getContentPointAtWindowPoint(const glm::vec2 & windowPoint) const {
     glm::vec2 contentPoint;
-    contentPoint.x = coc::map(windowPoint.x, scrollPos.x, scrollPos.x + scrollSize.x, 0, contentSize.x, true);
-    contentPoint.y = coc::map(windowPoint.y, scrollPos.y, scrollPos.y + scrollSize.y, 0, contentSize.y, true);
+    contentPoint.x = coc::map(windowPoint.x, scrollPos.x, scrollPos.x + scrollSize.x, 0, contentSize.x);
+    contentPoint.y = coc::map(windowPoint.y, scrollPos.y, scrollPos.y + scrollSize.y, 0, contentSize.y);
     return contentPoint;
 }
 
@@ -239,8 +239,8 @@ glm::vec2 ScrollView::getContentPointAtScreenPoint(const glm::vec2 & screenPoint
 
 glm::vec2 ScrollView::getWindowPointAtContentPoint(const glm::vec2 & contentPoint) const {
     glm::vec2 windowPoint;
-    windowPoint.x = coc::map(contentPoint.x, 0, contentSize.x, scrollPos.x, scrollPos.x + scrollSize.x, true);
-    windowPoint.y = coc::map(contentPoint.y, 0, contentSize.y, scrollPos.y, scrollPos.y + scrollSize.y, true);
+    windowPoint.x = coc::map(contentPoint.x, 0, contentSize.x, scrollPos.x, scrollPos.x + scrollSize.x);
+    windowPoint.y = coc::map(contentPoint.y, 0, contentSize.y, scrollPos.y, scrollPos.y + scrollSize.y);
     return windowPoint;
 }
 
