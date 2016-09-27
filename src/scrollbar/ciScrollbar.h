@@ -35,14 +35,22 @@ public:
     ciScrollbar();
     ~ciScrollbar();
     
+    static ciScrollbarRef create();
+    
     virtual coc::ButtonRef initButton() const override { return coc::ciButton::create(); }
+    
+    void setTextureTrack(const ci::gl::TextureRef & value) { texTrack = value; }
+    void setTextureThumb(const ci::gl::TextureRef & value) { texThumb = value; }
+    void setTextureProgress(const ci::gl::TextureRef & value) { texProgress = value; }
     
     virtual void draw() const override;
     virtual void drawDebug() const override;
     
 protected:
 
-    //
+    ci::gl::TextureRef texTrack;
+    ci::gl::TextureRef texThumb;
+    ci::gl::TextureRef texProgress;
 };
 
 }
