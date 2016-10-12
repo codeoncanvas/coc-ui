@@ -56,7 +56,6 @@ public:
 
     //----------------------------------------------------------
     Image(const glm::vec2 & size);
-    ~Image();
     
     static ImageRef create(const glm::vec2 & size);
     

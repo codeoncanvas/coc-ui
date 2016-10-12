@@ -32,11 +32,10 @@ class ciImage : public coc::Image {
 public:
 
     ciImage(const ci::gl::TextureRef & texture);
-    ~ciImage();
     
     static ciImageRef create(const ci::gl::TextureRef & texture);
     
-    void setShader(ci::gl::GlslProgRef value) { shader = value; }
+    void setShader(ci::gl::GlslProgRef value);
     
     virtual void update() override;
     

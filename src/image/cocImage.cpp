@@ -37,10 +37,6 @@ bInsetChanged(false) {
     //
 }
 
-Image::~Image() {
-
-}
-
 //--------------------------------------------------------------
 ImageRef Image::create(const glm::vec2 & size) {
     return ImageRef(new Image(size));

@@ -27,18 +27,19 @@ namespace coc {
 
 //--------------------------------------------------------------
 ciImage::ciImage(const ci::gl::TextureRef & texture) :
-coc::Image( texture->getSize() ) {
-    
-    shader = gl::getStockShader( gl::ShaderDef().texture().color() );
+coc::Image(texture->getSize()),
+texture(texture),
+shader(gl::getStockShader(gl::ShaderDef().texture().color())) {
+    //
 }
 
-ciImage::~ciImage() {
-
-}
-    
 //--------------------------------------------------------------
 ciImageRef ciImage::create(const ci::gl::TextureRef & texture) {
     return ciImageRef(new ciImage(texture));
+}
+
+void ciImage::setShader(ci::gl::GlslProgRef value) {
+    shader = value;
 }
 
 //--------------------------------------------------------------
@@ -61,7 +62,7 @@ void ciImage::draw() const {
             vb.vertex(vert);
         }
         for(glm::vec2 tex : shape.texcoords) {
-            vb.texCoord(tex);
+            vb.texCoord(glm::vec2(tex.x, 1.0 - tex.y));
         }
         for(glm::vec4 col : shape.colors) {
             vb.color(ColorA(col));
