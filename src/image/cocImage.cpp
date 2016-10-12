@@ -185,18 +185,21 @@ void Image::update() {
         
         glm::vec2 vert0 = rectScaled0;
         glm::vec2 vert1 = rectScaled1;
+        
+        glm::vec2 tex0(0, 0);
+        glm::vec2 tex1(1, 1);
+        
         if(crop == CropRect) {
             vert0.x = coc::clamp(vert0.x, rectTarget0.x, rectTarget1.x);
             vert0.y = coc::clamp(vert0.y, rectTarget0.y, rectTarget1.y);
             vert1.x = coc::clamp(vert1.x, rectTarget0.x, rectTarget1.x);
             vert1.y = coc::clamp(vert1.y, rectTarget0.y, rectTarget1.y);
+            
+            tex0.x = coc::map(vert0.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
+            tex0.y = coc::map(vert0.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
+            tex1.x = coc::map(vert1.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
+            tex1.y = coc::map(vert1.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
         }
-        
-        glm::vec2 tex0, tex1;
-        tex0.x = coc::map(vert0.x, rectTarget0.x, rectTarget1.x, 0.0, 1.0);
-        tex0.y = coc::map(vert0.y, rectTarget0.y, rectTarget1.y, 0.0, 1.0);
-        tex1.x = coc::map(vert1.x, rectTarget0.x, rectTarget1.x, 0.0, 1.0);
-        tex1.y = coc::map(vert1.y, rectTarget0.y, rectTarget1.y, 0.0, 1.0);
         
         Shape shape;
         shape.vertices.push_back( glm::vec2(vert0.x, vert0.y) );
