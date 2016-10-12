@@ -27,8 +27,10 @@ sourceSize(size),
 targetSize(size),
 targetPos(0, 0),
 bTargetChanged(true),
-scaleMode(ScaleMode::None),
+scaleMode(ScaleModeNone),
 bScaleModeChanged(false),
+crop(CropNone),
+bCropChanged(false),
 insetUpperLeft(0, 0),
 insetLowerRight(size),
 bInsetChanged(false) {
@@ -85,6 +87,16 @@ Image::ScaleMode Image::getScaleMode() const {
 }
 
 //--------------------------------------------------------------
+void Image::setCrop(Crop value) {
+    bCropChanged = bCropChanged || (crop != value);
+    crop = value;
+}
+
+Image::Crop Image::getCrop() const {
+    return crop;
+}
+
+//--------------------------------------------------------------
 void Image::setInsetUpperLeft(const glm::vec2 & value) {
     setInsetLeft( value.x );
     setInsetUpper( value.y );
@@ -135,6 +147,7 @@ void Image::update() {
     bool bUpdate = false;
     bUpdate = bUpdate || bTargetChanged;
     bUpdate = bUpdate || bScaleModeChanged;
+    bUpdate = bUpdate || bCropChanged;
     bUpdate = bUpdate || bInsetChanged;
     if(bUpdate == false) {
         return;
@@ -154,6 +167,7 @@ void Image::update() {
     
     bTargetChanged = false;
     bScaleModeChanged = false;
+    bCropChanged = false;
     bInsetChanged = false;
 }
 

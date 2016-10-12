@@ -32,9 +32,16 @@ class Image {
 public:
 
     enum ScaleMode {
-        None=0,
-        Fit,
-        Fill
+        ScaleModeNone=0,
+        ScaleModeFit,
+        ScaleModeFill
+    };
+    
+    enum Crop {
+        CropNone=0,
+        CropRect,
+        CropCircle,
+        CropEllipse
     };
     
     class Shape {
@@ -59,6 +66,9 @@ public:
     
     void setScaleMode(ScaleMode value);
     ScaleMode getScaleMode() const;
+    
+    void setCrop(Crop value);
+    Crop getCrop() const;
 
     void setInsetUpperLeft(const glm::vec2 & value);
     void setInsetLowerRight(const glm::vec2 & value);
@@ -84,6 +94,9 @@ protected:
     
     ScaleMode scaleMode;
     bool bScaleModeChanged;
+    
+    Crop crop;
+    bool bCropChanged;
     
     glm::vec2 insetUpperLeft;
     glm::vec2 insetLowerRight;
