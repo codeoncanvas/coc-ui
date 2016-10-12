@@ -31,12 +31,14 @@ class Image {
 
 public:
 
+    //----------------------------------------------------------
     enum ScaleMode {
         ScaleModeNone=0,
         ScaleModeFit,
         ScaleModeFill
     };
     
+    //----------------------------------------------------------
     enum Crop {
         CropNone=0,
         CropRect,
@@ -44,12 +46,15 @@ public:
         CropEllipse
     };
     
+    //----------------------------------------------------------
     class Shape {
     public:
-        std::vector<glm::vec2> verts;
-        std::vector<glm::vec2> texcords;
+        std::vector<glm::vec2> vertices;
+        std::vector<glm::vec2> texcoords;
+        std::vector<glm::vec4> colors;
     };
 
+    //----------------------------------------------------------
     Image(const glm::vec2 & size);
     ~Image();
     
@@ -78,6 +83,8 @@ public:
     void setInsetUpper(float value);
     void setInsetRight(float value);
     void setInsetLower(float value);
+    
+    std::vector<Shape> & getShapes() { return shapes; }
     
     virtual void update();
     

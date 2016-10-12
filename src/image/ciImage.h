@@ -36,14 +36,16 @@ public:
     
     static ciImageRef create(const ci::gl::TextureRef & texture);
     
+    void setShader(ci::gl::GlslProgRef value) { shader = value; }
+    
     virtual void update() override;
     
 	virtual void draw() const override;
-    virtual void drawDebug() const override;
 
 protected:
 
     ci::gl::TextureRef texture;
+    ci::gl::GlslProgRef shader;
 
 };
 

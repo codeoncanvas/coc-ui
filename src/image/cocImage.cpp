@@ -153,16 +153,73 @@ void Image::update() {
         return;
     }
     
-    if(bTargetChanged) {
+    shapes.clear();
     
-    }
-    
-    if(bScaleModeChanged) {
+    bool bInset = false;
+    bInset = bInset || (insetUpperLeft != glm::vec2(0, 0));
+    bInset = bInset || (insetLowerRight != sourceSize);
+    if(bInset) {
+        
         //
-    }
+        
+    } else {
     
-    if(bInsetChanged) {
-        //
+        coc::Rect rectTarget = getRect();
+        coc::Rect rectScaled(glm::vec2(0,0), sourceSize);
+        
+        if(scaleMode == ScaleModeNone) {
+            rectScaled = rectTarget;
+        } else if(scaleMode == ScaleModeFit) {
+            rectScaled.fitInto(rectTarget);
+        } else if(scaleMode == ScaleModeFill) {
+            rectScaled.fitInto(rectTarget, true);
+        }
+        
+        glm::vec2 rectTarget0, rectTarget1;
+        rectTarget0.x = rectTarget.getX();
+        rectTarget0.y = rectTarget.getY();
+        rectTarget1.x = rectTarget.getX() + rectTarget.getW();
+        rectTarget1.y = rectTarget.getY() + rectTarget.getH();
+        
+        glm::vec2 rectScaled0, rectScaled1;
+        rectScaled0.x = rectScaled.getX();
+        rectScaled0.y = rectScaled.getY();
+        rectScaled1.x = rectScaled.getX() + rectScaled.getW();
+        rectScaled1.y = rectScaled.getY() + rectScaled.getH();
+        
+        glm::vec2 vert0 = rectScaled0;
+        glm::vec2 vert1 = rectScaled1;
+        if(crop == CropRect) {
+            vert0.x = coc::clamp(vert0.x, rectTarget0.x, rectTarget1.x);
+            vert0.y = coc::clamp(vert0.y, rectTarget0.y, rectTarget1.y);
+            vert1.x = coc::clamp(vert1.x, rectTarget0.x, rectTarget1.x);
+            vert1.y = coc::clamp(vert1.y, rectTarget0.y, rectTarget1.y);
+        }
+        
+        glm::vec2 tex0, tex1;
+        tex0.x = coc::map(vert0.x, rectTarget0.x, rectTarget1.x, 0.0, 1.0);
+        tex0.y = coc::map(vert0.y, rectTarget0.y, rectTarget1.y, 0.0, 1.0);
+        tex1.x = coc::map(vert1.x, rectTarget0.x, rectTarget1.x, 0.0, 1.0);
+        tex1.y = coc::map(vert1.y, rectTarget0.y, rectTarget1.y, 0.0, 1.0);
+        
+        Shape shape;
+        shape.vertices.push_back( glm::vec2(vert0.x, vert0.y) );
+        shape.vertices.push_back( glm::vec2(vert0.x, vert1.y) );
+        shape.vertices.push_back( glm::vec2(vert1.x, vert0.y) );
+        shape.vertices.push_back( glm::vec2(vert1.x, vert1.y) );
+        
+        shape.texcoords.push_back( glm::vec2(tex0.x, tex0.y) );
+        shape.texcoords.push_back( glm::vec2(tex0.x, tex1.y) );
+        shape.texcoords.push_back( glm::vec2(tex1.x, tex0.y) );
+        shape.texcoords.push_back( glm::vec2(tex1.x, tex1.y) );
+        
+        glm::vec4 colorWhite(1, 1, 1, 1);
+        shape.colors.push_back( colorWhite );
+        shape.colors.push_back( colorWhite );
+        shape.colors.push_back( colorWhite );
+        shape.colors.push_back( colorWhite );
+        
+        shapes.push_back(shape);
     }
     
     bTargetChanged = false;
