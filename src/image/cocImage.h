@@ -69,7 +69,7 @@ public:
     void setInsetRight(float value);
     void setInsetLower(float value);
     
-    void update();
+    virtual void update();
     
 	virtual void draw() const {}
     virtual void drawDebug() const {}
