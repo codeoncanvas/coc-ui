@@ -27,10 +27,12 @@ sourceSize(size),
 targetSize(size),
 targetPos(0, 0),
 bTargetChanged(true),
-scaleType(ScaleModeNone),
-bScaleTypeChanged(false),
-cropType(CropNone),
-bCropTypeChanged(false),
+alignment(AlignmentCenter),
+bAlignmentChanged(false),
+scale(ScaleNone),
+bScaleChanged(false),
+crop(CropNone),
+bCropChanged(false),
 insetPos0(0, 0),
 insetPos1(size),
 bInsetChanged(false) {
@@ -73,23 +75,33 @@ coc::Rect Image::getRect() const {
 }
 
 //--------------------------------------------------------------
-void Image::setScaleType(ScaleType value) {
-    bScaleTypeChanged = bScaleTypeChanged || (scaleType != value);
-    scaleType = value;
+void Image::setAlignment(Alignment value) {
+    bAlignmentChanged = bAlignmentChanged || alignment != value;
+    alignment = value;
 }
 
-Image::ScaleType Image::getScaleType() const {
-    return scaleType;
+Image::Alignment Image::getAlignment() {
+    return alignment;
 }
 
 //--------------------------------------------------------------
-void Image::setCropType(CropType value) {
-    bCropTypeChanged = bCropTypeChanged || (cropType != value);
-    cropType = value;
+void Image::setScale(Scale value) {
+    bScaleChanged = bScaleChanged || (scale != value);
+    scale = value;
 }
 
-Image::CropType Image::getCropType() const {
-    return cropType;
+Image::Scale Image::getScale() const {
+    return scale;
+}
+
+//--------------------------------------------------------------
+void Image::setCrop(Crop value) {
+    bCropChanged = bCropChanged || (crop != value);
+    crop = value;
+}
+
+Image::Crop Image::getCrop() const {
+    return crop;
 }
 
 //--------------------------------------------------------------
@@ -180,8 +192,9 @@ void Image::update() {
     
     bool bUpdate = false;
     bUpdate = bUpdate || bTargetChanged;
-    bUpdate = bUpdate || bScaleTypeChanged;
-    bUpdate = bUpdate || bCropTypeChanged;
+    bUpdate = bUpdate || bAlignmentChanged;
+    bUpdate = bUpdate || bScaleChanged;
+    bUpdate = bUpdate || bCropChanged;
     bUpdate = bUpdate || bInsetChanged;
     if(bUpdate == false) {
         return;
@@ -193,11 +206,11 @@ void Image::update() {
     coc::Rect rectTarget = getRect();
     coc::Rect rectScaled(glm::vec2(0,0), sourceSize);
     
-    if(scaleType == ScaleModeNone) {
+    if(scale == ScaleNone) {
         rectScaled = rectTarget;
-    } else if(scaleType == ScaleModeFit) {
+    } else if(scale == ScaleFit) {
         rectScaled.fitInto(rectTarget);
-    } else if(scaleType == ScaleModeFill) {
+    } else if(scale == ScaleFill) {
         rectScaled.fitInto(rectTarget, true);
     }
     
@@ -385,7 +398,7 @@ void Image::update() {
         tex0 = glm::vec2(0, 0);
         tex1 = glm::vec2(1, 1);
         
-        if(cropType == CropRect) {
+        if(crop == CropRect) {
             vert0.x = coc::clamp(vert0.x, rectTarget0.x, rectTarget1.x);
             vert0.y = coc::clamp(vert0.y, rectTarget0.y, rectTarget1.y);
             vert1.x = coc::clamp(vert1.x, rectTarget0.x, rectTarget1.x);
@@ -401,8 +414,9 @@ void Image::update() {
     }
     
     bTargetChanged = false;
-    bScaleTypeChanged = false;
-    bCropTypeChanged = false;
+    bAlignmentChanged = false;
+    bScaleChanged = false;
+    bCropChanged = false;
     bInsetChanged = false;
 }
 

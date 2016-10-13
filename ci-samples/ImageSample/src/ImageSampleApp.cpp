@@ -49,17 +49,38 @@ void ImageSampleApp::draw() {
     image->draw();
     
     if(bDebug) {
+        string alignmentStr = "Center";
+        if(image->getAlignment() == coc::Image::AlignmentTopLeft) {
+            alignmentStr = "TopLeft";
+        } else if(image->getAlignment() == coc::Image::AlignmentTopCenter) {
+            alignmentStr = "TopCenter";
+        } else if(image->getAlignment() == coc::Image::AlignmentTopRight) {
+            alignmentStr = "TopRight";
+        } else if(image->getAlignment() == coc::Image::AlignmentBottomLeft) {
+            alignmentStr = "BottomLeft";
+        } else if(image->getAlignment() == coc::Image::AlignmentBottomCenter) {
+            alignmentStr = "BottomCenter";
+        } else if(image->getAlignment() == coc::Image::AlignmentBottomRight) {
+            alignmentStr = "BottomRight";
+        } else if(image->getAlignment() == coc::Image::AlignmentLeftCenter) {
+            alignmentStr = "LeftCenter";
+        } else if(image->getAlignment() == coc::Image::AlignmentRightCenter) {
+            alignmentStr = "RightCenter";
+        }
+    
         string scaleStr = "None";
-        if(image->getScaleType() == coc::Image::ScaleModeFit) {
+        if(image->getScale() == coc::Image::ScaleStretch) {
+            scaleStr = "Stretch";
+        } else if(image->getScale() == coc::Image::ScaleFit) {
             scaleStr = "Fit";
-        } else if(image->getScaleType() == coc::Image::ScaleModeFill) {
+        } else if(image->getScale() == coc::Image::ScaleFill) {
             scaleStr = "Fill";
         }
         
         string cropStr = "None";
-        if(image->getCropType() == coc::Image::CropRect) {
+        if(image->getCrop() == coc::Image::CropRect) {
             cropStr = "Rect";
-        } else if(image->getCropType() == coc::Image::CropCircle) {
+        } else if(image->getCrop() == coc::Image::CropCircle) {
             cropStr = "Circle";
         }
         
@@ -69,17 +90,19 @@ void ImageSampleApp::draw() {
         gl::drawStrokedRect(imageRect);
         
         gl::color(0,0,0,0.5);
-        gl::drawSolidRect(Rectf(glm::vec2(0,0), glm::vec2(150, 100)));
+        gl::drawSolidRect(Rectf(glm::vec2(0,0), glm::vec2(150, 150)));
 
         int textX = 10;
         int textY = 15;
         int lineH = 20;
         
         gl::color(1, 1, 1);
-        gl::drawString("Keyboard shortcuts", glm::vec2(textX, textY));
-        gl::drawString("(1) Scale: " + scaleStr, glm::vec2(textX, textY+=lineH));
-        gl::drawString("(2) Crop: " + cropStr, glm::vec2(textX, textY+=lineH));
-        gl::drawString("(3) Inset: " + insetStr, glm::vec2(textX, textY+=lineH));
+        gl::drawString("Resize window.", glm::vec2(textX, textY));
+        gl::drawString("Use keyboard shortcuts,", glm::vec2(textX, textY+=lineH));
+        gl::drawString("(1) Alignment: " + alignmentStr, glm::vec2(textX, textY+=lineH));
+        gl::drawString("(2) Scale: " + scaleStr, glm::vec2(textX, textY+=lineH));
+        gl::drawString("(3) Crop: " + cropStr, glm::vec2(textX, textY+=lineH));
+        gl::drawString("(4) Inset: " + insetStr, glm::vec2(textX, textY+=lineH));
         
         gl::color(1, 1, 1);
     }
@@ -91,15 +114,20 @@ void ImageSampleApp::keyDown(KeyEvent event) {
 
     if(key == '1') {
     
-        int scaleType = (image->getScaleType() + 1) % 3;
-        image->setScaleType((coc::Image::ScaleType)scaleType);
+        int alignment = (image->getAlignment() + 1) % (int)coc::Image::AlignmentTotal;
+        image->setAlignment((coc::Image::Alignment)alignment);
     
     } else if(key == '2') {
     
-        int cropType = (image->getCropType() + 1) % 3;
-        image->setCropType((coc::Image::CropType)cropType);
-        
+        int scale = (image->getScale() + 1) % (int)coc::Image::ScaleTotal;
+        image->setScale((coc::Image::Scale)scale);
+    
     } else if(key == '3') {
+    
+        int crop = (image->getCrop() + 1) % (int)coc::Image::CropTotal;
+        image->setCrop((coc::Image::Crop)crop);
+        
+    } else if(key == '4') {
     
         float inset = image->getInsetMin();
         if(inset == 0) {

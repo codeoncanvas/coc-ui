@@ -32,17 +32,34 @@ class Image {
 public:
 
     //----------------------------------------------------------
-    enum ScaleType {
-        ScaleModeNone=0,
-        ScaleModeFit,
-        ScaleModeFill
+    enum Alignment {
+        AlignmentCenter=0,
+        AlignmentTopLeft,
+        AlignmentTopCenter,
+        AlignmentTopRight,
+        AlignmentBottomLeft,
+        AlignmentBottomCenter,
+        AlignmentBottomRight,
+        AlignmentLeftCenter,
+        AlignmentRightCenter,
+        AlignmentTotal
+    };
+
+    //----------------------------------------------------------
+    enum Scale {
+        ScaleNone=0,
+        ScaleStretch,
+        ScaleFit,
+        ScaleFill,
+        ScaleTotal
     };
     
     //----------------------------------------------------------
-    enum CropType {
+    enum Crop {
         CropNone=0,
         CropRect,
-        CropCircle
+        CropCircle,
+        CropTotal
     };
     
     //----------------------------------------------------------
@@ -68,11 +85,14 @@ public:
     void setRect(const coc::Rect & value);
     coc::Rect getRect() const;
     
-    void setScaleType(ScaleType value);
-    ScaleType getScaleType() const;
+    void setAlignment(Alignment value);
+    Alignment getAlignment();
     
-    void setCropType(CropType value);
-    CropType getCropType() const;
+    void setScale(Scale value);
+    Scale getScale() const;
+    
+    void setCrop(Crop value);
+    Crop getCrop() const;
 
     //----------------------------------------------------------
     void setInset(float value);
@@ -116,11 +136,14 @@ protected:
     glm::vec2 targetPos;
     bool bTargetChanged;
     
-    ScaleType scaleType;
-    bool bScaleTypeChanged;
+    Alignment alignment;
+    bool bAlignmentChanged;
     
-    CropType cropType;
-    bool bCropTypeChanged;
+    Scale scale;
+    bool bScaleChanged;
+    
+    Crop crop;
+    bool bCropChanged;
     
     glm::vec2 insetPos0;
     glm::vec2 insetPos1;
