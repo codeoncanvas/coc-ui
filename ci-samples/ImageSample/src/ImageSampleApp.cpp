@@ -49,6 +49,15 @@ void ImageSampleApp::draw() {
     image->draw();
     
     if(bDebug) {
+        string scaleStr = "None";
+        if(image->getScale() == coc::Image::ScaleStretch) {
+            scaleStr = "Stretch";
+        } else if(image->getScale() == coc::Image::ScaleFit) {
+            scaleStr = "Fit";
+        } else if(image->getScale() == coc::Image::ScaleFill) {
+            scaleStr = "Fill";
+        }
+        
         string alignmentStr = "Center";
         if(image->getAlignment() == coc::Image::AlignmentTopLeft) {
             alignmentStr = "TopLeft";
@@ -66,15 +75,6 @@ void ImageSampleApp::draw() {
             alignmentStr = "LeftCenter";
         } else if(image->getAlignment() == coc::Image::AlignmentRightCenter) {
             alignmentStr = "RightCenter";
-        }
-    
-        string scaleStr = "None";
-        if(image->getScale() == coc::Image::ScaleStretch) {
-            scaleStr = "Stretch";
-        } else if(image->getScale() == coc::Image::ScaleFit) {
-            scaleStr = "Fit";
-        } else if(image->getScale() == coc::Image::ScaleFill) {
-            scaleStr = "Fill";
         }
         
         string cropStr = "None";
@@ -99,10 +99,11 @@ void ImageSampleApp::draw() {
         gl::color(1, 1, 1);
         gl::drawString("Resize window.", glm::vec2(textX, textY));
         gl::drawString("Use keyboard shortcuts,", glm::vec2(textX, textY+=lineH));
-        gl::drawString("(1) Alignment: " + alignmentStr, glm::vec2(textX, textY+=lineH));
-        gl::drawString("(2) Scale: " + scaleStr, glm::vec2(textX, textY+=lineH));
+        gl::drawString("(1) Scale: " + scaleStr, glm::vec2(textX, textY+=lineH));
+        gl::drawString("(2) Align: " + alignmentStr, glm::vec2(textX, textY+=lineH));
         gl::drawString("(3) Crop: " + cropStr, glm::vec2(textX, textY+=lineH));
         gl::drawString("(4) Inset: " + insetStr, glm::vec2(textX, textY+=lineH));
+        gl::drawString("(D) Debug: ON", glm::vec2(textX, textY+=lineH));
         
         gl::color(1, 1, 1);
     }
@@ -113,14 +114,14 @@ void ImageSampleApp::keyDown(KeyEvent event) {
     char key = event.getChar();
 
     if(key == '1') {
-    
-        int alignment = (image->getAlignment() + 1) % (int)coc::Image::AlignmentTotal;
-        image->setAlignment((coc::Image::Alignment)alignment);
-    
-    } else if(key == '2') {
-    
+
         int scale = (image->getScale() + 1) % (int)coc::Image::ScaleTotal;
         image->setScale((coc::Image::Scale)scale);
+    
+    } else if(key == '2') {
+
+        int alignment = (image->getAlignment() + 1) % (int)coc::Image::AlignmentTotal;
+        image->setAlignment((coc::Image::Alignment)alignment);
     
     } else if(key == '3') {
     

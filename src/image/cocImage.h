@@ -32,6 +32,15 @@ class Image {
 public:
 
     //----------------------------------------------------------
+    enum Scale {
+        ScaleNone=0,
+        ScaleStretch,
+        ScaleFit,
+        ScaleFill,
+        ScaleTotal
+    };
+    
+    //----------------------------------------------------------
     enum Alignment {
         AlignmentCenter=0,
         AlignmentTopLeft,
@@ -43,15 +52,6 @@ public:
         AlignmentLeftCenter,
         AlignmentRightCenter,
         AlignmentTotal
-    };
-
-    //----------------------------------------------------------
-    enum Scale {
-        ScaleNone=0,
-        ScaleStretch,
-        ScaleFit,
-        ScaleFill,
-        ScaleTotal
     };
     
     //----------------------------------------------------------
@@ -85,11 +85,11 @@ public:
     void setRect(const coc::Rect & value);
     coc::Rect getRect() const;
     
-    void setAlignment(Alignment value);
-    Alignment getAlignment();
-    
     void setScale(Scale value);
     Scale getScale() const;
+    
+    void setAlignment(Alignment value);
+    Alignment getAlignment();
     
     void setCrop(Crop value);
     Crop getCrop() const;
@@ -136,11 +136,11 @@ protected:
     glm::vec2 targetPos;
     bool bTargetChanged;
     
-    Alignment alignment;
-    bool bAlignmentChanged;
-    
     Scale scale;
     bool bScaleChanged;
+    
+    Alignment alignment;
+    bool bAlignmentChanged;
     
     Crop crop;
     bool bCropChanged;

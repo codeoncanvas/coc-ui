@@ -27,10 +27,10 @@ sourceSize(size),
 targetSize(size),
 targetPos(0, 0),
 bTargetChanged(true),
-alignment(AlignmentCenter),
-bAlignmentChanged(false),
 scale(ScaleNone),
 bScaleChanged(false),
+alignment(AlignmentCenter),
+bAlignmentChanged(false),
 crop(CropNone),
 bCropChanged(false),
 insetPos0(0, 0),
@@ -75,16 +75,6 @@ coc::Rect Image::getRect() const {
 }
 
 //--------------------------------------------------------------
-void Image::setAlignment(Alignment value) {
-    bAlignmentChanged = bAlignmentChanged || alignment != value;
-    alignment = value;
-}
-
-Image::Alignment Image::getAlignment() {
-    return alignment;
-}
-
-//--------------------------------------------------------------
 void Image::setScale(Scale value) {
     bScaleChanged = bScaleChanged || (scale != value);
     scale = value;
@@ -92,6 +82,16 @@ void Image::setScale(Scale value) {
 
 Image::Scale Image::getScale() const {
     return scale;
+}
+
+//--------------------------------------------------------------
+void Image::setAlignment(Alignment value) {
+    bAlignmentChanged = bAlignmentChanged || alignment != value;
+    alignment = value;
+}
+
+Image::Alignment Image::getAlignment() {
+    return alignment;
 }
 
 //--------------------------------------------------------------
@@ -207,13 +207,70 @@ void Image::update() {
     coc::Rect rectScaled(glm::vec2(0,0), sourceSize);
     
     if(scale == ScaleNone) {
+    
+        float x = rectTarget.getX() + (rectTarget.getW() - rectScaled.getW()) * 0.5;
+        float y = rectTarget.getY() + (rectTarget.getH() - rectScaled.getH()) * 0.5;
+        rectScaled.setX(x);
+        rectScaled.setY(y);
+        
+    } else if(scale == ScaleStretch) {
+    
         rectScaled = rectTarget;
+        
     } else if(scale == ScaleFit) {
+    
         rectScaled.fitInto(rectTarget);
+        
     } else if(scale == ScaleFill) {
+    
         rectScaled.fitInto(rectTarget, true);
     }
     
+    //---------------------------------------------------------- alignment.
+    glm::vec2 alignPos0, alignPos1;
+    alignPos0.x = rectTarget.getX();
+    alignPos0.y = rectTarget.getY();
+    alignPos1.x = rectTarget.getX() + rectTarget.getW() - rectScaled.getW();
+    alignPos1.y = rectTarget.getY() + rectTarget.getH() - rectScaled.getH();
+    
+    if(alignment == Image::AlignmentTopLeft) {
+    
+        rectScaled.setX(alignPos0.x);
+        rectScaled.setY(alignPos0.y);
+        
+    } else if(alignment == Image::AlignmentTopCenter) {
+    
+        rectScaled.setY(alignPos0.y);
+        
+    } else if(alignment == Image::AlignmentTopRight) {
+    
+        rectScaled.setX(alignPos1.x);
+        rectScaled.setY(alignPos0.y);
+        
+    } else if(alignment == Image::AlignmentBottomLeft) {
+    
+        rectScaled.setX(alignPos0.x);
+        rectScaled.setY(alignPos1.y);
+    
+    } else if(alignment == Image::AlignmentBottomCenter) {
+    
+        rectScaled.setY(alignPos1.y);
+    
+    } else if(alignment == Image::AlignmentBottomRight) {
+    
+        rectScaled.setX(alignPos1.x);
+        rectScaled.setY(alignPos1.y);
+    
+    } else if(alignment == Image::AlignmentLeftCenter) {
+    
+        rectScaled.setX(alignPos0.x);
+    
+    } else if(alignment == Image::AlignmentRightCenter) {
+    
+        rectScaled.setX(alignPos1.x);
+    }
+    
+    //---------------------------------------------------------- inset and crop.
     glm::vec2 rectTarget0, rectTarget1;
     rectTarget0.x = rectTarget.getX();
     rectTarget0.y = rectTarget.getY();
