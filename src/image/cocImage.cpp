@@ -220,6 +220,12 @@ void Image::update() {
     bInset = bInset || (insetPos0 != glm::vec2(0, 0));
     bInset = bInset || (insetPos1 != sourceSize);
     if(bInset) {
+    
+        glm::vec2 insetVert0, insetVert1;
+        insetVert0.x = rectScaled0.x + getInsetFromLeft();
+        insetVert0.y = rectScaled0.y + getInsetFromTop();
+        insetVert1.x = rectScaled1.x - getInsetFromRight();
+        insetVert1.y = rectScaled1.y - getInsetFromBottom();
         
         glm::vec2 insetTex0, insetTex1;
         insetTex0.x = coc::map(insetPos0.x, 0, sourceSize.x, 0.0, 1.0);
@@ -230,9 +236,10 @@ void Image::update() {
         bool bUpperLeftCorner = true;
         if(bUpperLeftCorner) {
             
-            vert0 = vert1 = glm::vec2(rectScaled0.x, rectScaled0.y);
-            vert1.x += getInsetFromLeft();
-            vert1.y += getInsetFromTop();
+            vert0.x = rectScaled0.x;
+            vert0.y = rectScaled0.y;
+            vert1.x = insetVert0.x;
+            vert1.y = insetVert0.y;
             
             tex0.x = 0.0;
             tex0.y = 0.0;
@@ -245,9 +252,10 @@ void Image::update() {
         bool bUpperRightCorner = true;
         if(bUpperRightCorner) {
 
-            vert0 = vert1 = glm::vec2(rectScaled1.x, rectScaled0.y);
-            vert0.x -= getInsetFromRight();
-            vert1.y += getInsetFromTop();
+            vert0.x = insetVert1.x;
+            vert0.y = rectScaled0.y;
+            vert1.x = rectScaled1.x;
+            vert1.y = insetVert0.y;
 
             tex0.x = insetTex1.x;
             tex0.y = 0.0;
@@ -260,9 +268,10 @@ void Image::update() {
         bool bLowerLeftCorner = true;
         if(bLowerLeftCorner) {
 
-            vert0 = vert1 = glm::vec2(rectScaled0.x, rectScaled1.y);
-            vert0.y -= getInsetFromBottom();
-            vert1.x += getInsetFromLeft();
+            vert0.x = rectScaled0.x;
+            vert0.y = insetVert1.y;
+            vert1.x = insetVert0.x;
+            vert1.y = rectScaled1.y;
 
             tex0.x = 0.0;
             tex0.y = insetTex1.y;
@@ -275,9 +284,10 @@ void Image::update() {
         bool bLowerRightCorner = true;
         if(bLowerRightCorner) {
         
-            vert0 = vert1 = glm::vec2(rectScaled1.x, rectScaled1.y);
-            vert0.x -= getInsetFromRight();
-            vert0.y -= getInsetFromBottom();
+            vert0.x = insetVert1.x;
+            vert0.y = insetVert1.y;
+            vert1.x = rectScaled1.x;
+            vert1.y = rectScaled1.y;
 
             tex0.x = insetTex1.x;
             tex0.y = insetTex1.y;
@@ -286,7 +296,71 @@ void Image::update() {
             
             shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
         }
-                
+        
+        bool bLeftEdge = true;
+        if(bLeftEdge) {
+            
+            vert0.x = rectScaled0.x;
+            vert0.y = insetVert0.y;
+            vert1.x = insetVert0.x;
+            vert1.y = insetVert1.y;
+            
+            tex0.x = 0.0;
+            tex0.y = insetTex0.y;
+            tex1.x = insetTex0.x;
+            tex1.y = insetTex1.y;
+            
+            shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
+        }
+        
+        bool bTopEdge = true;
+        if(bTopEdge) {
+
+            vert0.x = insetVert0.x;
+            vert0.y = rectScaled0.y;
+            vert1.x = insetVert1.x;
+            vert1.y = insetVert0.y;
+
+            tex0.x = insetTex0.x;
+            tex0.y = 0.0;
+            tex1.x = insetTex1.x;
+            tex1.y = insetTex0.y;
+            
+            shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
+        }
+        
+        bool bRightEdge = true;
+        if(bRightEdge) {
+        
+            vert0.x = insetVert1.x;
+            vert0.y = insetVert0.y;
+            vert1.x = rectScaled1.x;
+            vert1.y = insetVert1.y;
+
+            tex0.x = insetTex1.x;
+            tex0.y = insetTex0.y;
+            tex1.x = 1.0;
+            tex1.y = insetTex1.y;
+            
+            shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
+        }
+        
+        bool bBottomEdge = true;
+        if(bBottomEdge) {
+        
+            vert0.x = insetVert0.x;
+            vert0.y = insetVert1.y;
+            vert1.x = insetVert1.x;;
+            vert1.y = rectScaled1.y;
+
+            tex0.x = insetTex0.x;
+            tex0.y = insetTex1.y;
+            tex1.x = insetTex1.x;
+            tex1.y = 1.0;
+            
+            shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
+        }
+        
     } else {
     
         vert0 = rectScaled0;

@@ -25,9 +25,7 @@ void ImageSampleApp::setup() {
 
     bDebug = true;
 
-    gl::Texture::Format textureFormat;
-    textureFormat.enableMipmapping();
-    gl::TextureRef texture = gl::Texture::create(loadImage(getAssetPath("jaws.jpg")), textureFormat);
+    gl::TextureRef texture = gl::Texture::create(loadImage(getAssetPath("jaws.jpg")));
     image = coc::ciImage::create(texture);
 }
 
