@@ -33,6 +33,8 @@ alignment(AlignmentCenter),
 bAlignmentChanged(false),
 crop(CropNone),
 bCropChanged(false),
+cropCircleRes(100),
+bCropCircleResChanged(false),
 insetPos0(0, 0),
 insetPos1(size),
 bInsetChanged(false) {
@@ -102,6 +104,16 @@ void Image::setCrop(Crop value) {
 
 Image::Crop Image::getCrop() const {
     return crop;
+}
+
+//--------------------------------------------------------------
+void Image::setCropCircleRes(float value) {
+    bCropCircleResChanged = bCropCircleResChanged || (cropCircleRes != value);
+    cropCircleRes = value;
+}
+
+float Image::getCropCircleRes() {
+    return cropCircleRes;
 }
 
 //--------------------------------------------------------------
@@ -195,6 +207,7 @@ void Image::update() {
     bUpdate = bUpdate || bAlignmentChanged;
     bUpdate = bUpdate || bScaleChanged;
     bUpdate = bUpdate || bCropChanged;
+    bUpdate = bUpdate || bCropCircleResChanged;
     bUpdate = bUpdate || bInsetChanged;
     if(bUpdate == false) {
         return;
@@ -206,14 +219,7 @@ void Image::update() {
     coc::Rect rectTarget = getRect();
     coc::Rect rectScaled(glm::vec2(0,0), sourceSize);
     
-    if(scale == ScaleNone) {
-    
-        float x = rectTarget.getX() + (rectTarget.getW() - rectScaled.getW()) * 0.5;
-        float y = rectTarget.getY() + (rectTarget.getH() - rectScaled.getH()) * 0.5;
-        rectScaled.setX(x);
-        rectScaled.setY(y);
-        
-    } else if(scale == ScaleStretch) {
+    if(scale == ScaleStretch) {
     
         rectScaled = rectTarget;
         
@@ -224,6 +230,13 @@ void Image::update() {
     } else if(scale == ScaleFill) {
     
         rectScaled.fitInto(rectTarget, true);
+    
+    } else { // no scale - center image by default.
+    
+        float x = rectTarget.getX() + (rectTarget.getW() - rectScaled.getW()) * 0.5;
+        float y = rectTarget.getY() + (rectTarget.getH() - rectScaled.getH()) * 0.5;
+        rectScaled.setX(x);
+        rectScaled.setY(y);
     }
     
     //---------------------------------------------------------- alignment.
@@ -449,31 +462,51 @@ void Image::update() {
         
     } else {
     
-        vert0 = rectScaled0;
-        vert1 = rectScaled1;
-        
-        tex0 = glm::vec2(0, 0);
-        tex1 = glm::vec2(1, 1);
-        
         if(crop == CropRect) {
-            vert0.x = coc::clamp(vert0.x, rectTarget0.x, rectTarget1.x);
-            vert0.y = coc::clamp(vert0.y, rectTarget0.y, rectTarget1.y);
-            vert1.x = coc::clamp(vert1.x, rectTarget0.x, rectTarget1.x);
-            vert1.y = coc::clamp(vert1.y, rectTarget0.y, rectTarget1.y);
+        
+            vert0.x = coc::clamp(rectScaled0.x, rectTarget0.x, rectTarget1.x);
+            vert0.y = coc::clamp(rectScaled0.y, rectTarget0.y, rectTarget1.y);
+            vert1.x = coc::clamp(rectScaled1.x, rectTarget0.x, rectTarget1.x);
+            vert1.y = coc::clamp(rectScaled1.y, rectTarget0.y, rectTarget1.y);
             
             tex0.x = coc::map(vert0.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
             tex0.y = coc::map(vert0.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
             tex1.x = coc::map(vert1.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
             tex1.y = coc::map(vert1.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
-        }
+            
+            shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
         
-        shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
+        } else if(crop == CropCircle) {
+
+            vert0.x = coc::max(rectScaled0.x, rectTarget0.x);
+            vert0.y = coc::max(rectScaled0.y, rectTarget0.y);
+            vert1.x = coc::min(rectScaled1.x, rectTarget1.x);
+            vert1.y = coc::min(rectScaled1.y, rectTarget1.y);
+            
+            tex0.x = coc::map(vert0.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
+            tex0.y = coc::map(vert0.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
+            tex1.x = coc::map(vert1.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
+            tex1.y = coc::map(vert1.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
+            
+            shapes.push_back( getShapeCircle(vert0, vert1, tex0, tex1) );
+        
+        } else { // no crop.
+        
+            vert0 = rectScaled0;
+            vert1 = rectScaled1;
+            
+            tex0 = glm::vec2(0, 0);
+            tex1 = glm::vec2(1, 1);
+            
+            shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
+        }
     }
     
     bTargetChanged = false;
     bAlignmentChanged = false;
     bScaleChanged = false;
     bCropChanged = false;
+    bCropCircleResChanged = false;
     bInsetChanged = false;
 }
 
@@ -501,6 +534,44 @@ Image::Shape Image::getShapeRect(const glm::vec2 & vert0,
     shape.colors.push_back( colorWhite );
     
     return shape;
+}
+
+Image::Shape Image::getShapeCircle(const glm::vec2 & vert0,
+                                   const glm::vec2 & vert1,
+                                   const glm::vec2 & tex0,
+                                   const glm::vec2 & tex1) {
+    Shape shape;
+    
+    glm::vec2 circleSizeHalf = (vert1 - vert0) * 0.5f;
+    glm::vec2 circleCenter = vert0 + circleSizeHalf;
+    glm::vec4 colorWhite(1, 1, 1, 1);
+    
+    for(int i=0; i<cropCircleRes; i++) {
+        float p = coc::map(i, 0, cropCircleRes-1, 0.0, 1.0);
+        float a = p * M_PI * 2;
+        
+        glm::vec2 circleVert;
+        circleVert.x = circleCenter.x + sin(a) * circleSizeHalf.x;
+        circleVert.y = circleCenter.y + cos(a) * circleSizeHalf.y;
+        
+        glm::vec2 circleTex0, circleTex1;
+        circleTex0.x = coc::map(circleCenter.x, vert0.x, vert1.x, tex0.x, tex1.x);
+        circleTex0.y = coc::map(circleCenter.y, vert0.y, vert1.y, tex0.y, tex1.y);
+        circleTex1.x = coc::map(circleVert.x, vert0.x, vert1.x, tex0.x, tex1.x);
+        circleTex1.y = coc::map(circleVert.y, vert0.y, vert1.y, tex0.y, tex1.y);
+        
+        shape.vertices.push_back(circleCenter);
+        shape.vertices.push_back(circleVert);
+
+        shape.texcoords.push_back(circleTex0);
+        shape.texcoords.push_back(circleTex1);
+
+        shape.colors.push_back(colorWhite);
+        shape.colors.push_back(colorWhite);
+    }
+    
+    return shape;
+
 }
 
 }

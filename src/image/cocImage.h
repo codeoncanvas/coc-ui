@@ -93,6 +93,9 @@ public:
     
     void setCrop(Crop value);
     Crop getCrop() const;
+    
+    void setCropCircleRes(float value);
+    float getCropCircleRes();
 
     //----------------------------------------------------------
     void setInset(float value);
@@ -130,6 +133,11 @@ protected:
                        const glm::vec2 & tex0,
                        const glm::vec2 & tex1);
     
+    Shape getShapeCircle(const glm::vec2 & vert0,
+                         const glm::vec2 & vert1,
+                         const glm::vec2 & tex0,
+                         const glm::vec2 & tex1);
+    
     glm::vec2 sourceSize;
     
     glm::vec2 targetSize;
@@ -144,6 +152,8 @@ protected:
     
     Crop crop;
     bool bCropChanged;
+    float cropCircleRes;
+    bool bCropCircleResChanged;
     
     glm::vec2 insetPos0;
     glm::vec2 insetPos1;
