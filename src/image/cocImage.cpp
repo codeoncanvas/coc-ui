@@ -350,13 +350,29 @@ void Image::update() {
         
             vert0.x = insetVert0.x;
             vert0.y = insetVert1.y;
-            vert1.x = insetVert1.x;;
+            vert1.x = insetVert1.x;
             vert1.y = rectScaled1.y;
 
             tex0.x = insetTex0.x;
             tex0.y = insetTex1.y;
             tex1.x = insetTex1.x;
             tex1.y = 1.0;
+            
+            shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
+        }
+        
+        bool bMiddle = true;
+        if(bMiddle) {
+
+            vert0.x = insetVert0.x;
+            vert0.y = insetVert0.y;
+            vert1.x = insetVert1.x;
+            vert1.y = insetVert1.y;
+
+            tex0.x = insetTex0.x;
+            tex0.y = insetTex0.y;
+            tex1.x = insetTex1.x;
+            tex1.y = insetTex1.y;
             
             shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
         }
