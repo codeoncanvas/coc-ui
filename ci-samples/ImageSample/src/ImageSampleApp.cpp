@@ -24,6 +24,7 @@ void ImageSampleApp::setup() {
 
     gl::TextureRef texture = gl::Texture::create(loadImage(getAssetPath("jaws.jpg")));
     image = coc::ciImage::create(texture);
+    image->setInset(42);
 }
 
 void ImageSampleApp::update() {
@@ -41,7 +42,7 @@ void ImageSampleApp::update() {
 
 void ImageSampleApp::draw() {
 	
-    gl::clear(ColorA(1,1,1,1));
+    gl::clear(ColorA(0.1,0.1,0.1,1));
     
     image->draw();
     
@@ -59,7 +60,7 @@ void ImageSampleApp::keyDown(KeyEvent event) {
     
     } else if(event.getChar() == '2') {
     
-        int crop = (image->getCrop() + 1) % 4;
+        int crop = (image->getCrop() + 1) % 3;
         image->setCrop((coc::Image::Crop)crop);
     }
 }

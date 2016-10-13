@@ -42,8 +42,7 @@ public:
     enum Crop {
         CropNone=0,
         CropRect,
-        CropCircle,
-        CropEllipse
+        CropCircle
     };
     
     //----------------------------------------------------------
