@@ -27,12 +27,12 @@ sourceSize(size),
 targetSize(size),
 targetPos(0, 0),
 bTargetChanged(true),
-scaleMode(ScaleModeNone),
-bScaleModeChanged(false),
-crop(CropNone),
-bCropChanged(false),
-insetUpperLeft(0, 0),
-insetLowerRight(size),
+scaleType(ScaleModeNone),
+bScaleTypeChanged(false),
+cropType(CropNone),
+bCropTypeChanged(false),
+insetPos0(0, 0),
+insetPos1(size),
 bInsetChanged(false) {
     //
 }
@@ -73,123 +73,192 @@ coc::Rect Image::getRect() const {
 }
 
 //--------------------------------------------------------------
-void Image::setScaleMode(ScaleMode value) {
-    bScaleModeChanged = bScaleModeChanged || (scaleMode != value);
-    scaleMode = value;
+void Image::setScaleType(ScaleType value) {
+    bScaleTypeChanged = bScaleTypeChanged || (scaleType != value);
+    scaleType = value;
 }
 
-Image::ScaleMode Image::getScaleMode() const {
-    return scaleMode;
-}
-
-//--------------------------------------------------------------
-void Image::setCrop(Crop value) {
-    bCropChanged = bCropChanged || (crop != value);
-    crop = value;
-}
-
-Image::Crop Image::getCrop() const {
-    return crop;
+Image::ScaleType Image::getScaleType() const {
+    return scaleType;
 }
 
 //--------------------------------------------------------------
-void Image::setInsetUpperLeft(const glm::vec2 & value) {
-    setInsetLeft( value.x );
-    setInsetUpper( value.y );
+void Image::setCropType(CropType value) {
+    bCropTypeChanged = bCropTypeChanged || (cropType != value);
+    cropType = value;
 }
 
-void Image::setInsetLowerRight(const glm::vec2 & value) {
-    setInsetRight( value.x );
-    setInsetLower( value.y );
+Image::CropType Image::getCropType() const {
+    return cropType;
 }
 
-void Image::setInsetRect(const coc::Rect & value) {
-    setInsetLeft( value.getX() );
-    setInsetUpper( value.getY() );
-    setInsetRight( sourceSize.x - value.getX() - value.getW() );
-    setInsetLower( sourceSize.y - value.getY() - value.getH() );
-}
-
+//--------------------------------------------------------------
 void Image::setInset(float value) {
-    setInsetLeft( value );
-    setInsetUpper( value );
-    setInsetRight( value );
-    setInsetLower( value );
+    setInsetFromLeft( value );
+    setInsetFromTop( value );
+    setInsetFromRight( value );
+    setInsetFromBottom( value );
 }
 
-void Image::setInsetLeft(float value) {
-    bInsetChanged = bInsetChanged || (insetUpperLeft.x != value);
-    insetUpperLeft.x = value;
+float Image::getInsetMin() const {
+    float inset = getInsetFromLeft();
+    inset = coc::min(inset, getInsetFromTop());
+    inset = coc::min(inset, getInsetFromRight());
+    inset = coc::min(inset, getInsetFromBottom());
+    return inset;
 }
 
-void Image::setInsetUpper(float value) {
-    bInsetChanged = bInsetChanged || (insetUpperLeft.y != value);
-    insetUpperLeft.y = value;
+float Image::getInsetMax() const {
+    float inset = getInsetFromLeft();
+    inset = coc::max(inset, getInsetFromTop());
+    inset = coc::max(inset, getInsetFromRight());
+    inset = coc::max(inset, getInsetFromBottom());
+    return inset;
 }
 
-void Image::setInsetRight(float value) {
-    bInsetChanged = bInsetChanged || (insetLowerRight.x != value);
-    insetLowerRight.x = value;
+//--------------------------------------------------------------
+void Image::setInsetFromLeft(float value) {
+    float x = value;
+    bInsetChanged = bInsetChanged || (insetPos0.x != x);
+    insetPos0.x = x;
 }
 
-void Image::setInsetLower(float value) {
-    bInsetChanged = bInsetChanged || (insetLowerRight.y != value);
-    insetLowerRight.y = value;
+float Image::getInsetFromLeft() const {
+    return insetPos0.x;
 }
 
-//--------------------------------------------------------------    
+//--------------------------------------------------------------
+void Image::setInsetFromTop(float value) {
+    float y = value;
+    bInsetChanged = bInsetChanged || (insetPos0.y != y);
+    insetPos0.y = y;
+}
+
+float Image::getInsetFromTop() const {
+    return insetPos0.y;
+}
+
+//--------------------------------------------------------------
+void Image::setInsetFromRight(float value) {
+    float x = sourceSize.x - value;
+    bInsetChanged = bInsetChanged || (insetPos1.x != x);
+    insetPos1.x = x;
+}
+
+float Image::getInsetFromRight() const {
+    return sourceSize.x - insetPos1.x;
+}
+
+//--------------------------------------------------------------
+void Image::setInsetFromBottom(float value) {
+    float y = sourceSize.y - value;
+    bInsetChanged = bInsetChanged || (insetPos1.y != y);
+    insetPos1.y = y;
+}
+
+float Image::getInsetFromBottom() const {
+    return sourceSize.y - insetPos1.y;
+}
+
+//--------------------------------------------------------------
+void Image::setInsetRect(const coc::Rect & value) {
+    insetPos0.x = value.getX();
+    insetPos0.y = value.getY();
+    insetPos1.x = value.getX() + value.getW();
+    insetPos1.y = value.getY() + value.getH();
+}
+
+coc::Rect Image::getInsetRect() const {
+    return coc::Rect(insetPos0.x,
+                     insetPos0.y,
+                     insetPos0.x + insetPos1.x,
+                     insetPos0.y + insetPos1.y);
+}
+
+//--------------------------------------------------------------
 void Image::update() {
     
     bool bUpdate = false;
     bUpdate = bUpdate || bTargetChanged;
-    bUpdate = bUpdate || bScaleModeChanged;
-    bUpdate = bUpdate || bCropChanged;
+    bUpdate = bUpdate || bScaleTypeChanged;
+    bUpdate = bUpdate || bCropTypeChanged;
     bUpdate = bUpdate || bInsetChanged;
     if(bUpdate == false) {
         return;
     }
     
     shapes.clear();
+
+    //---------------------------------------------------------- scale.
+    coc::Rect rectTarget = getRect();
+    coc::Rect rectScaled(glm::vec2(0,0), sourceSize);
+    
+    if(scaleType == ScaleModeNone) {
+        rectScaled = rectTarget;
+    } else if(scaleType == ScaleModeFit) {
+        rectScaled.fitInto(rectTarget);
+    } else if(scaleType == ScaleModeFill) {
+        rectScaled.fitInto(rectTarget, true);
+    }
+    
+    glm::vec2 rectTarget0, rectTarget1;
+    rectTarget0.x = rectTarget.getX();
+    rectTarget0.y = rectTarget.getY();
+    rectTarget1.x = rectTarget.getX() + rectTarget.getW();
+    rectTarget1.y = rectTarget.getY() + rectTarget.getH();
+    
+    glm::vec2 rectScaled0, rectScaled1;
+    rectScaled0.x = rectScaled.getX();
+    rectScaled0.y = rectScaled.getY();
+    rectScaled1.x = rectScaled.getX() + rectScaled.getW();
+    rectScaled1.y = rectScaled.getY() + rectScaled.getH();
+
+    glm::vec2 vert0, vert1;
+    glm::vec2 tex0, tex1;
     
     bool bInset = false;
-    bInset = bInset || (insetUpperLeft != glm::vec2(0, 0));
-    bInset = bInset || (insetLowerRight != sourceSize);
+    bInset = bInset || (insetPos0 != glm::vec2(0, 0));
+    bInset = bInset || (insetPos1 != sourceSize);
     if(bInset) {
         
-        //
+        bool bUpperLeftCorner = true;
+        if(bUpperLeftCorner) {
+            
+            vert0 = vert1 = rectScaled0;
+            vert1 += insetPos0;
+            
+            tex0.x = 0.0;
+            tex0.y = 0.0;
+            tex1.x = coc::map(insetPos0.x, 0, sourceSize.x, 0.0, 1.0);
+            tex1.y = coc::map(insetPos0.y, 0, sourceSize.y, 0.0, 1.0);
+            
+            shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
+        }
+        
+        bool bUpperRightCorner = true;
+        if(bUpperRightCorner) {
+
+            vert0 = vert1 = glm::vec2(rectScaled1.x, rectScaled0.y);
+            vert0.x -= getInsetFromRight();
+            vert1.y += getInsetFromTop();
+
+            tex0.x = coc::map(insetPos1.x, 0, sourceSize.x, 0.0, 1.0);
+            tex0.y = 0.0;
+            tex1.x = 1.0;
+            tex1.y = coc::map(insetPos0.y, 0, sourceSize.y, 0.0, 1.0);
+            
+            shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
+        }
         
     } else {
     
-        coc::Rect rectTarget = getRect();
-        coc::Rect rectScaled(glm::vec2(0,0), sourceSize);
+        vert0 = rectScaled0;
+        vert1 = rectScaled1;
         
-        if(scaleMode == ScaleModeNone) {
-            rectScaled = rectTarget;
-        } else if(scaleMode == ScaleModeFit) {
-            rectScaled.fitInto(rectTarget);
-        } else if(scaleMode == ScaleModeFill) {
-            rectScaled.fitInto(rectTarget, true);
-        }
+        tex0 = glm::vec2(0, 0);
+        tex1 = glm::vec2(1, 1);
         
-        glm::vec2 rectTarget0, rectTarget1;
-        rectTarget0.x = rectTarget.getX();
-        rectTarget0.y = rectTarget.getY();
-        rectTarget1.x = rectTarget.getX() + rectTarget.getW();
-        rectTarget1.y = rectTarget.getY() + rectTarget.getH();
-        
-        glm::vec2 rectScaled0, rectScaled1;
-        rectScaled0.x = rectScaled.getX();
-        rectScaled0.y = rectScaled.getY();
-        rectScaled1.x = rectScaled.getX() + rectScaled.getW();
-        rectScaled1.y = rectScaled.getY() + rectScaled.getH();
-        
-        glm::vec2 vert0 = rectScaled0;
-        glm::vec2 vert1 = rectScaled1;
-        
-        glm::vec2 tex0(0, 0);
-        glm::vec2 tex1(1, 1);
-        
-        if(crop == CropRect) {
+        if(cropType == CropRect) {
             vert0.x = coc::clamp(vert0.x, rectTarget0.x, rectTarget1.x);
             vert0.y = coc::clamp(vert0.y, rectTarget0.y, rectTarget1.y);
             vert1.x = coc::clamp(vert1.x, rectTarget0.x, rectTarget1.x);
@@ -201,30 +270,39 @@ void Image::update() {
             tex1.y = coc::map(vert1.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
         }
         
-        Shape shape;
-        shape.vertices.push_back( glm::vec2(vert0.x, vert0.y) );
-        shape.vertices.push_back( glm::vec2(vert0.x, vert1.y) );
-        shape.vertices.push_back( glm::vec2(vert1.x, vert0.y) );
-        shape.vertices.push_back( glm::vec2(vert1.x, vert1.y) );
-        
-        shape.texcoords.push_back( glm::vec2(tex0.x, tex0.y) );
-        shape.texcoords.push_back( glm::vec2(tex0.x, tex1.y) );
-        shape.texcoords.push_back( glm::vec2(tex1.x, tex0.y) );
-        shape.texcoords.push_back( glm::vec2(tex1.x, tex1.y) );
-        
-        glm::vec4 colorWhite(1, 1, 1, 1);
-        shape.colors.push_back( colorWhite );
-        shape.colors.push_back( colorWhite );
-        shape.colors.push_back( colorWhite );
-        shape.colors.push_back( colorWhite );
-        
-        shapes.push_back(shape);
+        shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
     }
     
     bTargetChanged = false;
-    bScaleModeChanged = false;
-    bCropChanged = false;
+    bScaleTypeChanged = false;
+    bCropTypeChanged = false;
     bInsetChanged = false;
+}
+
+//--------------------------------------------------------------
+Image::Shape Image::getShapeRect(const glm::vec2 & vert0,
+                                 const glm::vec2 & vert1,
+                                 const glm::vec2 & tex0,
+                                 const glm::vec2 & tex1) {
+    Shape shape;
+    
+    shape.vertices.push_back( glm::vec2(vert0.x, vert0.y) );
+    shape.vertices.push_back( glm::vec2(vert0.x, vert1.y) );
+    shape.vertices.push_back( glm::vec2(vert1.x, vert0.y) );
+    shape.vertices.push_back( glm::vec2(vert1.x, vert1.y) );
+    
+    shape.texcoords.push_back( glm::vec2(tex0.x, tex0.y) );
+    shape.texcoords.push_back( glm::vec2(tex0.x, tex1.y) );
+    shape.texcoords.push_back( glm::vec2(tex1.x, tex0.y) );
+    shape.texcoords.push_back( glm::vec2(tex1.x, tex1.y) );
+    
+    glm::vec4 colorWhite(1, 1, 1, 1);
+    shape.colors.push_back( colorWhite );
+    shape.colors.push_back( colorWhite );
+    shape.colors.push_back( colorWhite );
+    shape.colors.push_back( colorWhite );
+    
+    return shape;
 }
 
 }

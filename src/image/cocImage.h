@@ -32,14 +32,14 @@ class Image {
 public:
 
     //----------------------------------------------------------
-    enum ScaleMode {
+    enum ScaleType {
         ScaleModeNone=0,
         ScaleModeFit,
         ScaleModeFill
     };
     
     //----------------------------------------------------------
-    enum Crop {
+    enum CropType {
         CropNone=0,
         CropRect,
         CropCircle
@@ -58,6 +58,7 @@ public:
     
     static ImageRef create(const glm::vec2 & size);
     
+    //----------------------------------------------------------
     void setPos(const glm::vec2 & value);
     const glm::vec2 & getPos() const;
     
@@ -67,23 +68,36 @@ public:
     void setRect(const coc::Rect & value);
     coc::Rect getRect() const;
     
-    void setScaleMode(ScaleMode value);
-    ScaleMode getScaleMode() const;
+    void setScaleType(ScaleType value);
+    ScaleType getScaleType() const;
     
-    void setCrop(Crop value);
-    Crop getCrop() const;
+    void setCropType(CropType value);
+    CropType getCropType() const;
 
-    void setInsetUpperLeft(const glm::vec2 & value);
-    void setInsetLowerRight(const glm::vec2 & value);
-    void setInsetRect(const coc::Rect & value);
+    //----------------------------------------------------------
     void setInset(float value);
-    void setInsetLeft(float value);
-    void setInsetUpper(float value);
-    void setInsetRight(float value);
-    void setInsetLower(float value);
+    float getInsetMin() const;
+    float getInsetMax() const;
     
+    void setInsetFromLeft(float value);
+    float getInsetFromLeft() const;
+    
+    void setInsetFromTop(float value);
+    float getInsetFromTop() const;
+    
+    void setInsetFromRight(float value);
+    float getInsetFromRight() const;
+    
+    void setInsetFromBottom(float value);
+    float getInsetFromBottom() const;
+
+    void setInsetRect(const coc::Rect & value);
+    coc::Rect getInsetRect() const;
+    
+    //----------------------------------------------------------
     std::vector<Shape> & getShapes() { return shapes; }
     
+    //----------------------------------------------------------
     virtual void update();
     
 	virtual void draw() const {}
@@ -91,20 +105,25 @@ public:
 
 protected:
 
+    Shape getShapeRect(const glm::vec2 & vert0,
+                       const glm::vec2 & vert1,
+                       const glm::vec2 & tex0,
+                       const glm::vec2 & tex1);
+    
     glm::vec2 sourceSize;
     
     glm::vec2 targetSize;
     glm::vec2 targetPos;
     bool bTargetChanged;
     
-    ScaleMode scaleMode;
-    bool bScaleModeChanged;
+    ScaleType scaleType;
+    bool bScaleTypeChanged;
     
-    Crop crop;
-    bool bCropChanged;
+    CropType cropType;
+    bool bCropTypeChanged;
     
-    glm::vec2 insetUpperLeft;
-    glm::vec2 insetLowerRight;
+    glm::vec2 insetPos0;
+    glm::vec2 insetPos1;
     bool bInsetChanged;
     
     std::vector<Shape> shapes;
