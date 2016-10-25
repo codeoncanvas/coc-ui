@@ -67,7 +67,6 @@ public:
     public:
         std::vector<glm::vec2> vertices;
         std::vector<glm::vec2> texcoords;
-        std::vector<glm::vec4> colors;
     };
 
     //----------------------------------------------------------
@@ -96,6 +95,9 @@ public:
     
     void setCropCircleRes(float value);
     float getCropCircleRes();
+    
+    void setColor(const glm::vec4 & value);
+    const glm::vec4 & getColor() const;
 
     //----------------------------------------------------------
     void setInset(float value);
@@ -160,7 +162,7 @@ protected:
     bool bInsetChanged;
     
     std::vector<Shape> shapes;
-
+    glm::vec4 color;
 };
 
 }
