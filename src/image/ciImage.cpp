@@ -64,9 +64,6 @@ void ciImage::draw() const {
         for(glm::vec2 tex : shape.texcoords) {
             vb.texCoord(glm::vec2(tex.x, 1.0 - tex.y));
         }
-        for(int i=0; i<shape.vertices.size(); i++) {
-            vb.color(color);
-        }
         vb.draw();
     }
 }

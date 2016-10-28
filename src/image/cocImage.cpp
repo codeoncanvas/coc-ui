@@ -37,8 +37,7 @@ cropCircleRes(100),
 bCropCircleResChanged(false),
 insetPos0(0, 0),
 insetPos1(size),
-bInsetChanged(false),
-color(1,1,1,1) {
+bInsetChanged(false) {
     //
 }
 
@@ -115,15 +114,6 @@ void Image::setCropCircleRes(float value) {
 
 float Image::getCropCircleRes() {
     return cropCircleRes;
-}
-
-//--------------------------------------------------------------
-void Image::setColor(const glm::vec4 & value) {
-    color = value;
-}
-
-const glm::vec4 & Image::getColor() const {
-    return color;
 }
 
 //--------------------------------------------------------------
@@ -548,7 +538,6 @@ Image::Shape Image::getShapeCircle(const glm::vec2 & vert0,
     
     glm::vec2 circleSizeHalf = (vert1 - vert0) * 0.5f;
     glm::vec2 circleCenter = vert0 + circleSizeHalf;
-    glm::vec4 colorWhite(1, 1, 1, 1);
     
     for(int i=0; i<cropCircleRes; i++) {
         float p = coc::map(i, 0, cropCircleRes-1, 0.0, 1.0);

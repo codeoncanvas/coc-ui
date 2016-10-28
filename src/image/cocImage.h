@@ -96,9 +96,6 @@ public:
     void setCropCircleRes(float value);
     float getCropCircleRes();
     
-    void setColor(const glm::vec4 & value);
-    const glm::vec4 & getColor() const;
-
     //----------------------------------------------------------
     void setInset(float value);
     float getInsetMin() const;
@@ -162,7 +159,6 @@ protected:
     bool bInsetChanged;
     
     std::vector<Shape> shapes;
-    glm::vec4 color;
 };
 
 }
