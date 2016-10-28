@@ -96,6 +96,12 @@ float Scrollbar::getPosition() const {
 }
 
 //--------------------------------------------------------------
+void Scrollbar::setEnabled(bool value) {
+    track->setEnabled(value);
+    thumb->setEnabled(value);
+}
+
+//--------------------------------------------------------------
 void Scrollbar::update() {
 
     bPositionChangeInternal = false;

@@ -61,6 +61,8 @@ public:
     float getPosition() const;
     bool hasPositionChanged() const { return bPositionChangeInternal; }
     
+    void setEnabled(bool value);
+    
     virtual void update();
     
     virtual void draw() const {};
