@@ -210,8 +210,12 @@ glm::vec2 ScrollView::getScrollPositionNormalized() const {
     glm::vec2 boundsLR = getScrollBoundsLowerRight();
 
     glm::vec2 pos;
-    pos.x = coc::map(scrollPos.x, boundsLR.x, boundsUL.x, 0.0, 1.0);
-    pos.y = coc::map(scrollPos.y, boundsLR.y, boundsUL.y, 0.0, 1.0);
+    if(boundsLR.x != boundsUL.x) { // prevent NaN.
+        pos.x = coc::map(scrollPos.x, boundsLR.x, boundsUL.x, 0.0, 1.0);
+    }
+    if(boundsLR.y != boundsUL.y) { // prevent NaN.
+        pos.y = coc::map(scrollPos.y, boundsLR.y, boundsUL.y, 0.0, 1.0);
+    }
     return pos;
 }
 
