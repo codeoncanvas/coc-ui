@@ -64,6 +64,7 @@ public:
     void setUseHandlers(bool value);
     void setUpdateAsync(bool value);
     void setRegisterEvents(bool value);
+    void setTransform(const glm::mat4 & value);
 
 	void moveTo( int x, int y);
 	void moveCenterTo( int x, int y);
@@ -118,6 +119,7 @@ protected:
     bool bRegisterEvents;
 
     glm::ivec2 pointPos;
+    glm::mat4 pointTransform;
     std::vector<ButtonPoint> points;
     bool bOver;
     bool bOverChanged;

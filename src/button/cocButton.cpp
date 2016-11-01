@@ -100,6 +100,10 @@ void Button::setRegisterEvents(bool value) {
     }
 }
 
+void Button::setTransform(const glm::mat4 & value) {
+    pointTransform = value;
+}
+
 //--------------------------------------------------------------
 void Button::moveTo( int x, int y ) {
     rect.setX(x);
@@ -165,6 +169,10 @@ void Button::update() {
     //----------------------------------------------------------
     for(int i=0; i<points.size(); i++) {
         ButtonPoint & point = points[i];
+        
+        glm::vec4 pos(point.pos.x, point.pos.y, 0, 1);
+        pos = glm::inverse(pointTransform) * pos;
+        point.pos = glm::vec2(pos.x, pos.y);
         
         bool bOverNew = rect.isInside(point.pos.x, point.pos.y);
         bOverChanged = (bOver != bOverNew);
