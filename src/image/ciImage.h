@@ -20,6 +20,8 @@
 #pragma once
 
 #include "cocImage.h"
+#include "cinder/app/App.h"
+#include "cinder/gl/gl.h"
 
 namespace coc {
 
