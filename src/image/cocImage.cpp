@@ -558,13 +558,13 @@ void Image::update() {
                 
                 vert0.x = outerVert0.x;
                 vert0.y = outerVert0.y;
-                vert1.x = innerVert0.x;
-                vert1.y = innerVert0.y;
+                vert1.x = innerVert2.x;
+                vert1.y = innerVert2.y;
                 
                 tex0.x = outerTex0.x;
                 tex0.y = outerTex0.y;
-                tex1.x = innerTex0.x;
-                tex1.y = innerTex0.y;
+                tex1.x = innerTex2.x;
+                tex1.y = innerTex2.y;
                 
                 shapes.push_back( getShapeCircle(vert0, vert1, tex0, tex1, 0.5, 0.75) );
             }
@@ -572,15 +572,15 @@ void Image::update() {
             bool bUpperRightCorner = true;
             if(bUpperRightCorner) {
 
-                vert0.x = innerVert1.x;
+                vert0.x = innerVert3.x;
                 vert0.y = outerVert0.y;
                 vert1.x = outerVert1.x;
-                vert1.y = innerVert0.y;
+                vert1.y = innerVert2.y;
 
-                tex0.x = innerTex1.x;
+                tex0.x = innerTex3.x;
                 tex0.y = outerTex0.y;
                 tex1.x = outerTex1.x;
-                tex1.y = innerTex0.y;
+                tex1.y = innerTex2.y;
                 
                 shapes.push_back( getShapeCircle(vert0, vert1, tex0, tex1, 0.25, 0.5) );
             }
@@ -589,13 +589,13 @@ void Image::update() {
             if(bLowerLeftCorner) {
 
                 vert0.x = outerVert0.x;
-                vert0.y = innerVert1.y;
-                vert1.x = innerVert0.x;
+                vert0.y = innerVert3.y;
+                vert1.x = innerVert2.x;
                 vert1.y = outerVert1.y;
 
                 tex0.x = outerTex0.x;
-                tex0.y = innerTex1.y;
-                tex1.x = innerTex0.x;
+                tex0.y = innerTex3.y;
+                tex1.x = innerTex2.x;
                 tex1.y = outerTex1.y;
                 
                 shapes.push_back( getShapeCircle(vert0, vert1, tex0, tex1, 0.75, 1) );
@@ -604,13 +604,13 @@ void Image::update() {
             bool bLowerRightCorner = true;
             if(bLowerRightCorner) {
             
-                vert0.x = innerVert1.x;
-                vert0.y = innerVert1.y;
+                vert0.x = innerVert3.x;
+                vert0.y = innerVert3.y;
                 vert1.x = outerVert1.x;
                 vert1.y = outerVert1.y;
 
-                tex0.x = innerTex1.x;
-                tex0.y = innerTex1.y;
+                tex0.x = innerTex3.x;
+                tex0.y = innerTex3.y;
                 tex1.x = outerTex1.x;
                 tex1.y = outerTex1.y;
                 
