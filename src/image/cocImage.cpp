@@ -35,6 +35,8 @@ crop(CropNone),
 bCropChanged(false),
 cropCircleRes(100),
 bCropCircleResChanged(false),
+cropRoundedCornerRadius(0),
+bCropRoundedCornerRadiusChanged(false),
 insetPos0(0, 0),
 insetPos1(size),
 bInsetChanged(false) {
@@ -92,7 +94,7 @@ void Image::setAlignment(Alignment value) {
     alignment = value;
 }
 
-Image::Alignment Image::getAlignment() {
+Image::Alignment Image::getAlignment() const {
     return alignment;
 }
 
@@ -112,8 +114,18 @@ void Image::setCropCircleRes(float value) {
     cropCircleRes = value;
 }
 
-float Image::getCropCircleRes() {
+float Image::getCropCircleRes() const {
     return cropCircleRes;
+}
+
+//--------------------------------------------------------------
+void Image::setCropRoundedCornerRadius(float value) {
+    bCropRoundedCornerRadiusChanged = bCropRoundedCornerRadiusChanged || (cropRoundedCornerRadius != value);
+    cropRoundedCornerRadius = value;
+}
+
+float Image::getCropRoundedCornerRadius() const {
+    return cropRoundedCornerRadius;
 }
 
 //--------------------------------------------------------------
@@ -207,7 +219,8 @@ void Image::update() {
     bUpdate = bUpdate || bAlignmentChanged;
     bUpdate = bUpdate || bScaleChanged;
     bUpdate = bUpdate || bCropChanged;
-    bUpdate = bUpdate || bCropCircleResChanged;
+    bUpdate = bUpdate || ((crop == CropCircle) && bCropCircleResChanged);
+    bUpdate = bUpdate || ((crop == cropRoundedCornerRadius) && bCropRoundedCornerRadiusChanged);
     bUpdate = bUpdate || bInsetChanged;
     if(bUpdate == false) {
         return;
@@ -462,7 +475,15 @@ void Image::update() {
         
     } else {
     
-        if(crop == CropRect) {
+        bool bCropRect = (crop == CropRect);
+        bCropRect = bCropRect || ((crop == CropRoundedCorners) && (cropRoundedCornerRadius == 0));
+        
+        bool bCropCircle = (crop == CropCircle);
+        
+        bool bCropRoundedCorners = (crop == CropRoundedCorners);
+        bCropRoundedCorners = bCropRoundedCorners && (cropRoundedCornerRadius > 0);
+    
+        if(bCropRect) {
         
             vert0.x = coc::clamp(rectScaled0.x, rectTarget0.x, rectTarget1.x);
             vert0.y = coc::clamp(rectScaled0.y, rectTarget0.y, rectTarget1.y);
@@ -476,7 +497,7 @@ void Image::update() {
             
             shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
         
-        } else if(crop == CropCircle) {
+        } else if(bCropCircle) {
 
             vert0.x = coc::max(rectScaled0.x, rectTarget0.x);
             vert0.y = coc::max(rectScaled0.y, rectTarget0.y);
@@ -488,7 +509,193 @@ void Image::update() {
             tex1.x = coc::map(vert1.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
             tex1.y = coc::map(vert1.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
             
-            shapes.push_back( getShapeCircle(vert0, vert1, tex0, tex1) );
+            shapes.push_back( getShapeCircle(vert0, vert1, tex0, tex1, 0, 1) );
+            
+        } else if(bCropRoundedCorners) {
+        
+            glm::vec2 outerVert0, outerVert1;
+            outerVert0.x = coc::clamp(rectScaled0.x, rectTarget0.x, rectTarget1.x);
+            outerVert0.y = coc::clamp(rectScaled0.y, rectTarget0.y, rectTarget1.y);
+            outerVert1.x = coc::clamp(rectScaled1.x, rectTarget0.x, rectTarget1.x);
+            outerVert1.y = coc::clamp(rectScaled1.y, rectTarget0.y, rectTarget1.y);
+
+            glm::vec2 innerVert0, innerVert1;
+            innerVert0 = outerVert0;
+            innerVert0.x += cropRoundedCornerRadius;
+            innerVert0.y += cropRoundedCornerRadius;
+            innerVert1 = outerVert1;
+            innerVert1.x -= cropRoundedCornerRadius;
+            innerVert1.y -= cropRoundedCornerRadius;
+            
+            glm::vec2 innerVert2, innerVert3;
+            innerVert2 = outerVert0;
+            innerVert2.x += cropRoundedCornerRadius * 2;
+            innerVert2.y += cropRoundedCornerRadius * 2;
+            innerVert3 = outerVert1;
+            innerVert3.x -= cropRoundedCornerRadius * 2;
+            innerVert3.y -= cropRoundedCornerRadius * 2;
+            
+            glm::vec2 outerTex0, outerTex1;
+            outerTex0.x = coc::map(outerVert0.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
+            outerTex0.y = coc::map(outerVert0.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
+            outerTex1.x = coc::map(outerVert1.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
+            outerTex1.y = coc::map(outerVert1.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
+            
+            glm::vec2 innerTex0, innerTex1;
+            innerTex0.x = coc::map(innerVert0.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
+            innerTex0.y = coc::map(innerVert0.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
+            innerTex1.x = coc::map(innerVert1.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
+            innerTex1.y = coc::map(innerVert1.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
+            
+            glm::vec2 innerTex2, innerTex3;
+            innerTex2.x = coc::map(innerVert2.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
+            innerTex2.y = coc::map(innerVert2.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
+            innerTex3.x = coc::map(innerVert3.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
+            innerTex3.y = coc::map(innerVert3.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
+            
+            bool bUpperLeftCorner = true;
+            if(bUpperLeftCorner) {
+                
+                vert0.x = outerVert0.x;
+                vert0.y = outerVert0.y;
+                vert1.x = innerVert0.x;
+                vert1.y = innerVert0.y;
+                
+                tex0.x = outerTex0.x;
+                tex0.y = outerTex0.y;
+                tex1.x = innerTex0.x;
+                tex1.y = innerTex0.y;
+                
+                shapes.push_back( getShapeCircle(vert0, vert1, tex0, tex1, 0.5, 0.75) );
+            }
+            
+            bool bUpperRightCorner = true;
+            if(bUpperRightCorner) {
+
+                vert0.x = innerVert1.x;
+                vert0.y = outerVert0.y;
+                vert1.x = outerVert1.x;
+                vert1.y = innerVert0.y;
+
+                tex0.x = innerTex1.x;
+                tex0.y = outerTex0.y;
+                tex1.x = outerTex1.x;
+                tex1.y = innerTex0.y;
+                
+                shapes.push_back( getShapeCircle(vert0, vert1, tex0, tex1, 0.25, 0.5) );
+            }
+            
+            bool bLowerLeftCorner = true;
+            if(bLowerLeftCorner) {
+
+                vert0.x = outerVert0.x;
+                vert0.y = innerVert1.y;
+                vert1.x = innerVert0.x;
+                vert1.y = outerVert1.y;
+
+                tex0.x = outerTex0.x;
+                tex0.y = innerTex1.y;
+                tex1.x = innerTex0.x;
+                tex1.y = outerTex1.y;
+                
+                shapes.push_back( getShapeCircle(vert0, vert1, tex0, tex1, 0.75, 1) );
+            }
+            
+            bool bLowerRightCorner = true;
+            if(bLowerRightCorner) {
+            
+                vert0.x = innerVert1.x;
+                vert0.y = innerVert1.y;
+                vert1.x = outerVert1.x;
+                vert1.y = outerVert1.y;
+
+                tex0.x = innerTex1.x;
+                tex0.y = innerTex1.y;
+                tex1.x = outerTex1.x;
+                tex1.y = outerTex1.y;
+                
+                shapes.push_back( getShapeCircle(vert0, vert1, tex0, tex1, 0, 0.25) );
+            }
+            
+            bool bLeftEdge = true;
+            if(bLeftEdge) {
+                
+                vert0.x = outerVert0.x;
+                vert0.y = innerVert0.y;
+                vert1.x = innerVert0.x;
+                vert1.y = innerVert1.y;
+                
+                tex0.x = outerTex0.x;
+                tex0.y = innerTex0.y;
+                tex1.x = innerTex0.x;
+                tex1.y = innerTex1.y;
+                
+                shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
+            }
+            
+            bool bTopEdge = true;
+            if(bTopEdge) {
+
+                vert0.x = innerVert0.x;
+                vert0.y = outerVert0.y;
+                vert1.x = innerVert1.x;
+                vert1.y = innerVert0.y;
+
+                tex0.x = innerTex0.x;
+                tex0.y = outerTex0.y;
+                tex1.x = innerTex1.x;
+                tex1.y = innerTex0.y;
+                
+                shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
+            }
+            
+            bool bRightEdge = true;
+            if(bRightEdge) {
+            
+                vert0.x = innerVert1.x;
+                vert0.y = innerVert0.y;
+                vert1.x = outerVert1.x;
+                vert1.y = innerVert1.y;
+
+                tex0.x = innerTex1.x;
+                tex0.y = innerTex0.y;
+                tex1.x = outerTex1.x;
+                tex1.y = innerTex1.y;
+                
+                shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
+            }
+            
+            bool bBottomEdge = true;
+            if(bBottomEdge) {
+            
+                vert0.x = innerVert0.x;
+                vert0.y = innerVert1.y;
+                vert1.x = innerVert1.x;
+                vert1.y = outerVert1.y;
+
+                tex0.x = innerTex0.x;
+                tex0.y = innerTex1.y;
+                tex1.x = innerTex1.x;
+                tex1.y = outerTex1.y;
+                
+                shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
+            }
+            
+            bool bMiddle = true;
+            if(bMiddle) {
+
+                vert0.x = innerVert0.x;
+                vert0.y = innerVert0.y;
+                vert1.x = innerVert1.x;
+                vert1.y = innerVert1.y;
+
+                tex0.x = innerTex0.x;
+                tex0.y = innerTex0.y;
+                tex1.x = innerTex1.x;
+                tex1.y = innerTex1.y;
+                
+                shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
+            }
         
         } else { // no crop.
         
@@ -507,6 +714,7 @@ void Image::update() {
     bScaleChanged = false;
     bCropChanged = false;
     bCropCircleResChanged = false;
+    bCropRoundedCornerRadiusChanged = false;
     bInsetChanged = false;
 }
 
@@ -533,15 +741,21 @@ Image::Shape Image::getShapeRect(const glm::vec2 & vert0,
 Image::Shape Image::getShapeCircle(const glm::vec2 & vert0,
                                    const glm::vec2 & vert1,
                                    const glm::vec2 & tex0,
-                                   const glm::vec2 & tex1) {
+                                   const glm::vec2 & tex1,
+                                   float a0, float a1) {
     Shape shape;
     
     glm::vec2 circleSizeHalf = (vert1 - vert0) * 0.5f;
     glm::vec2 circleCenter = vert0 + circleSizeHalf;
+
+    float resPercent = abs(a1 - a0);
+    int res = cropCircleRes * resPercent;
     
-    for(int i=0; i<cropCircleRes; i++) {
-        float p = coc::map(i, 0, cropCircleRes-1, 0.0, 1.0);
-        float a = p * M_PI * 2;
+    a0 *= M_PI * 2;
+    a1 *= M_PI * 2;
+    
+    for(int i=0; i<res; i++) {
+        float a = coc::map(i, 0, res-1, a0, a1);
         
         glm::vec2 circleVert;
         circleVert.x = circleCenter.x + sin(a) * circleSizeHalf.x;

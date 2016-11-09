@@ -27,6 +27,9 @@ void ImageSampleApp::setup() {
 
     gl::TextureRef texture = gl::Texture::create(loadImage(getAssetPath("jaws.jpg")));
     image = coc::ciImage::create(texture);
+    
+    image->setCropCircleRes(100);
+    image->setCropRoundedCornerRadius(20);
 }
 
 void ImageSampleApp::update() {
@@ -82,6 +85,8 @@ void ImageSampleApp::draw() {
             cropStr = "Rect";
         } else if(image->getCrop() == coc::Image::CropCircle) {
             cropStr = "Circle";
+        } else if(image->getCrop() == coc::Image::CropRoundedCorners) {
+            cropStr = "RoundedCorners";
         }
         
         string insetStr = toString(image->getInsetMin()) + " px";

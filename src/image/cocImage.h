@@ -58,6 +58,7 @@ public:
     enum Crop {
         CropNone=0,
         CropRect,
+        CropRoundedCorners,
         CropCircle,
         CropTotal
     };
@@ -88,13 +89,16 @@ public:
     Scale getScale() const;
     
     void setAlignment(Alignment value);
-    Alignment getAlignment();
+    Alignment getAlignment() const;
     
     void setCrop(Crop value);
     Crop getCrop() const;
     
     void setCropCircleRes(float value);
-    float getCropCircleRes();
+    float getCropCircleRes() const;
+    
+    void setCropRoundedCornerRadius(float value);
+    float getCropRoundedCornerRadius() const;
     
     //----------------------------------------------------------
     void setInset(float value);
@@ -135,7 +139,8 @@ protected:
     Shape getShapeCircle(const glm::vec2 & vert0,
                          const glm::vec2 & vert1,
                          const glm::vec2 & tex0,
-                         const glm::vec2 & tex1);
+                         const glm::vec2 & tex1,
+                         float a0=0, float a1=1);
     
     glm::vec2 sourceSize;
     
@@ -153,6 +158,8 @@ protected:
     bool bCropChanged;
     float cropCircleRes;
     bool bCropCircleResChanged;
+    float cropRoundedCornerRadius;
+    bool bCropRoundedCornerRadiusChanged;
     
     glm::vec2 insetPos0;
     glm::vec2 insetPos1;
