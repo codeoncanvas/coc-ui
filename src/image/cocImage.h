@@ -121,6 +121,13 @@ public:
     coc::Rect getInsetRect() const;
     
     //----------------------------------------------------------
+    void setFlipX(bool value);
+    bool getFlipX() const;
+    
+    void setFlipY(bool value);
+    bool getFlipY() const;
+    
+    //----------------------------------------------------------
     std::vector<Shape> & getShapes() { return shapes; }
     
     //----------------------------------------------------------
@@ -164,6 +171,11 @@ protected:
     glm::vec2 insetPos0;
     glm::vec2 insetPos1;
     bool bInsetChanged;
+    
+    bool bFlipX;
+    bool bFlipXChanged;
+    bool bFlipY;
+    bool bFlipYChanged;
     
     std::vector<Shape> shapes;
 };
