@@ -39,7 +39,11 @@ cropRoundedCornerRadius(0),
 bCropRoundedCornerRadiusChanged(false),
 insetPos0(0, 0),
 insetPos1(size),
-bInsetChanged(false) {
+bInsetChanged(false),
+bFlipX(false),
+bFlipXChanged(false),
+bFlipY(false),
+bFlipYChanged(false) {
     //
 }
 
@@ -212,6 +216,25 @@ coc::Rect Image::getInsetRect() const {
 }
 
 //--------------------------------------------------------------
+void Image::setFlipX(bool value) {
+    bFlipXChanged = bFlipXChanged || (bFlipX != value);
+    bFlipX = value;
+}
+
+bool Image::getFlipX() const {
+    return bFlipX;
+}
+
+void Image::setFlipY(bool value) {
+    bFlipYChanged = bFlipYChanged || (bFlipY != value);
+    bFlipY = value;
+}
+
+bool Image::getFlipY() const {
+    return bFlipY;
+}
+
+//--------------------------------------------------------------
 void Image::update() {
     
     bool bUpdate = false;
@@ -222,6 +245,8 @@ void Image::update() {
     bUpdate = bUpdate || ((crop == CropCircle) && bCropCircleResChanged);
     bUpdate = bUpdate || ((crop == cropRoundedCornerRadius) && bCropRoundedCornerRadiusChanged);
     bUpdate = bUpdate || bInsetChanged;
+    bUpdate = bUpdate || bFlipXChanged;
+    bUpdate = bUpdate || bFlipYChanged;
     if(bUpdate == false) {
         return;
     }
@@ -308,6 +333,17 @@ void Image::update() {
     rectScaled0.y = rectScaled.getY();
     rectScaled1.x = rectScaled.getX() + rectScaled.getW();
     rectScaled1.y = rectScaled.getY() + rectScaled.getH();
+    
+    glm::vec2 texMapX(0, 1);
+    if(bFlipX) {
+        texMapX[0] = 1;
+        texMapX[1] = 0;
+    }
+    glm::vec2 texMapY(0, 1);
+    if(bFlipY) {
+        texMapY[0] = 1;
+        texMapY[1] = 0;
+    }
 
     glm::vec2 vert0, vert1;
     glm::vec2 tex0, tex1;
@@ -324,10 +360,10 @@ void Image::update() {
         insetVert1.y = rectScaled1.y - getInsetFromBottom();
         
         glm::vec2 insetTex0, insetTex1;
-        insetTex0.x = coc::map(insetPos0.x, 0, sourceSize.x, 0.0, 1.0);
-        insetTex0.y = coc::map(insetPos0.y, 0, sourceSize.y, 0.0, 1.0);
-        insetTex1.x = coc::map(insetPos1.x, 0, sourceSize.x, 0.0, 1.0);
-        insetTex1.y = coc::map(insetPos1.y, 0, sourceSize.y, 0.0, 1.0);
+        insetTex0.x = coc::map(insetPos0.x, 0, sourceSize.x, texMapX[0], texMapX[1]);
+        insetTex0.y = coc::map(insetPos0.y, 0, sourceSize.y, texMapY[0], texMapY[1]);
+        insetTex1.x = coc::map(insetPos1.x, 0, sourceSize.x, texMapX[0], texMapX[1]);
+        insetTex1.y = coc::map(insetPos1.y, 0, sourceSize.y, texMapY[0], texMapY[1]);
         
         bool bUpperLeftCorner = true;
         if(bUpperLeftCorner) {
@@ -490,10 +526,10 @@ void Image::update() {
             vert1.x = coc::clamp(rectScaled1.x, rectTarget0.x, rectTarget1.x);
             vert1.y = coc::clamp(rectScaled1.y, rectTarget0.y, rectTarget1.y);
             
-            tex0.x = coc::map(vert0.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
-            tex0.y = coc::map(vert0.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
-            tex1.x = coc::map(vert1.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
-            tex1.y = coc::map(vert1.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
+            tex0.x = coc::map(vert0.x, rectScaled0.x, rectScaled1.x, texMapX[0], texMapX[1]);
+            tex0.y = coc::map(vert0.y, rectScaled0.y, rectScaled1.y, texMapY[0], texMapY[1]);
+            tex1.x = coc::map(vert1.x, rectScaled0.x, rectScaled1.x, texMapX[0], texMapX[1]);
+            tex1.y = coc::map(vert1.y, rectScaled0.y, rectScaled1.y, texMapY[0], texMapY[1]);
             
             shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
         
@@ -504,10 +540,10 @@ void Image::update() {
             vert1.x = coc::min(rectScaled1.x, rectTarget1.x);
             vert1.y = coc::min(rectScaled1.y, rectTarget1.y);
             
-            tex0.x = coc::map(vert0.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
-            tex0.y = coc::map(vert0.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
-            tex1.x = coc::map(vert1.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
-            tex1.y = coc::map(vert1.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
+            tex0.x = coc::map(vert0.x, rectScaled0.x, rectScaled1.x, texMapX[0], texMapX[1]);
+            tex0.y = coc::map(vert0.y, rectScaled0.y, rectScaled1.y, texMapY[0], texMapY[1]);
+            tex1.x = coc::map(vert1.x, rectScaled0.x, rectScaled1.x, texMapX[0], texMapX[1]);
+            tex1.y = coc::map(vert1.y, rectScaled0.y, rectScaled1.y, texMapY[0], texMapY[1]);
             
             shapes.push_back( getShapeCircle(vert0, vert1, tex0, tex1, 0, 1) );
             
@@ -536,22 +572,22 @@ void Image::update() {
             innerVert3.y -= cropRoundedCornerRadius * 2;
             
             glm::vec2 outerTex0, outerTex1;
-            outerTex0.x = coc::map(outerVert0.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
-            outerTex0.y = coc::map(outerVert0.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
-            outerTex1.x = coc::map(outerVert1.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
-            outerTex1.y = coc::map(outerVert1.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
+            outerTex0.x = coc::map(outerVert0.x, rectScaled0.x, rectScaled1.x, texMapX[0], texMapX[1]);
+            outerTex0.y = coc::map(outerVert0.y, rectScaled0.y, rectScaled1.y, texMapY[0], texMapY[1]);
+            outerTex1.x = coc::map(outerVert1.x, rectScaled0.x, rectScaled1.x, texMapX[0], texMapX[1]);
+            outerTex1.y = coc::map(outerVert1.y, rectScaled0.y, rectScaled1.y, texMapY[0], texMapY[1]);
             
             glm::vec2 innerTex0, innerTex1;
-            innerTex0.x = coc::map(innerVert0.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
-            innerTex0.y = coc::map(innerVert0.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
-            innerTex1.x = coc::map(innerVert1.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
-            innerTex1.y = coc::map(innerVert1.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
+            innerTex0.x = coc::map(innerVert0.x, rectScaled0.x, rectScaled1.x, texMapX[0], texMapX[1]);
+            innerTex0.y = coc::map(innerVert0.y, rectScaled0.y, rectScaled1.y, texMapY[0], texMapY[1]);
+            innerTex1.x = coc::map(innerVert1.x, rectScaled0.x, rectScaled1.x, texMapX[0], texMapX[1]);
+            innerTex1.y = coc::map(innerVert1.y, rectScaled0.y, rectScaled1.y, texMapY[0], texMapY[1]);
             
             glm::vec2 innerTex2, innerTex3;
-            innerTex2.x = coc::map(innerVert2.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
-            innerTex2.y = coc::map(innerVert2.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
-            innerTex3.x = coc::map(innerVert3.x, rectScaled0.x, rectScaled1.x, 0.0, 1.0);
-            innerTex3.y = coc::map(innerVert3.y, rectScaled0.y, rectScaled1.y, 0.0, 1.0);
+            innerTex2.x = coc::map(innerVert2.x, rectScaled0.x, rectScaled1.x, texMapX[0], texMapX[1]);
+            innerTex2.y = coc::map(innerVert2.y, rectScaled0.y, rectScaled1.y, texMapY[0], texMapY[1]);
+            innerTex3.x = coc::map(innerVert3.x, rectScaled0.x, rectScaled1.x, texMapX[0], texMapX[1]);
+            innerTex3.y = coc::map(innerVert3.y, rectScaled0.y, rectScaled1.y, texMapY[0], texMapY[1]);
             
             bool bUpperLeftCorner = true;
             if(bUpperLeftCorner) {
@@ -702,8 +738,8 @@ void Image::update() {
             vert0 = rectScaled0;
             vert1 = rectScaled1;
             
-            tex0 = glm::vec2(0, 0);
-            tex1 = glm::vec2(1, 1);
+            tex0 = glm::vec2(texMapX[0], texMapY[0]);
+            tex1 = glm::vec2(texMapX[1], texMapY[1]);
             
             shapes.push_back( getShapeRect(vert0, vert1, tex0, tex1) );
         }
@@ -716,6 +752,8 @@ void Image::update() {
     bCropCircleResChanged = false;
     bCropRoundedCornerRadiusChanged = false;
     bInsetChanged = false;
+    bFlipXChanged = false;
+    bFlipYChanged = false;
 }
 
 //--------------------------------------------------------------
