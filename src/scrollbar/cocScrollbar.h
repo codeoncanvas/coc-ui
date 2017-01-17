@@ -54,6 +54,9 @@ public:
     void setContentRatio(float value);
     float getContentRatio() const;
     
+    void setThumbOffset(float value);
+    float getThumbOffset() const;
+    
     void setEase(float value);
     float getEase() const;
     
@@ -80,6 +83,7 @@ protected:
     float position;
     float contentRatio;
     float ease;
+    float thumbOffset;
     
     coc::ButtonRef track;
     coc::ButtonRef thumb;

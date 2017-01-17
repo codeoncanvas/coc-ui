@@ -27,6 +27,7 @@ type(Type::Vertical),
 position(0.0),
 contentRatio(0.5),
 ease(0.0),
+thumbOffset(0.0),
 bThumbPressed(false),
 bPositionChangeInternal(false),
 bPositionChangeExternal(false) {
@@ -77,6 +78,15 @@ float Scrollbar::getContentRatio() const {
 }
 
 //--------------------------------------------------------------
+void Scrollbar::setThumbOffset(float value) {
+    thumbOffset = value;
+}
+
+float Scrollbar::getThumbOffset() const {
+    return thumbOffset;
+}
+
+//--------------------------------------------------------------
 void Scrollbar::setEase(float value) {
     ease = value;
 }
@@ -114,7 +124,7 @@ void Scrollbar::update() {
         float trackRectY = trackRect.getY();
         float trackRectH = trackRect.getH();
         float thumbRectH = trackRectH * contentRatio;
-        float thumbRectY = coc::map(position, 0.0, 1.0, trackRectY, trackRectY + trackRectH - thumbRectH, true);
+        float thumbRectY = coc::map(position, 0.0, 1.0, trackRectY - thumbOffset, trackRectY + trackRectH - thumbRectH + thumbOffset, true);
         thumbRect.setH(thumbRectH);
         thumbRect.setY(thumbRectY);
         
@@ -123,7 +133,7 @@ void Scrollbar::update() {
         float trackRectX = trackRect.getX();
         float trackRectW = trackRect.getW();
         float thumbRectW = trackRectW * contentRatio;
-        float thumbRectX = coc::map(position, 0.0, 1.0, trackRectX, trackRectX + trackRectW - thumbRectW, true);
+        float thumbRectX = coc::map(position, 0.0, 1.0, trackRectX - thumbOffset, trackRectX + trackRectW - thumbRectW + thumbOffset, true);
         thumbRect.setW(thumbRectW);
         thumbRect.setX(thumbRectX);
     }
@@ -177,7 +187,7 @@ void Scrollbar::update() {
             thumbMin = trackRect.getY();
             thumbMax = thumbMin + trackRect.getH() - thumbRect.getH();
             thumbPosNorm = coc::map(thumbPos, thumbMin, thumbMax, 0.0, 1.0, true);
-            thumbPos = coc::map(thumbPosNorm, 0.0, 1.0, thumbMin, thumbMax);
+            thumbPos = coc::map(thumbPosNorm, 0.0, 1.0, thumbMin - thumbOffset, thumbMax + thumbOffset);
             
             thumbRect.setY(thumbPos);
         
@@ -193,7 +203,7 @@ void Scrollbar::update() {
             thumbMin = trackRect.getX();
             thumbMax = thumbMin + trackRect.getW() - thumbRect.getW();
             thumbPosNorm = coc::map(thumbPos, thumbMin, thumbMax, 0.0, 1.0, true);
-            thumbPos = coc::map(thumbPosNorm, 0.0, 1.0, thumbMin, thumbMax);
+            thumbPos = coc::map(thumbPosNorm, 0.0, 1.0, thumbMin - thumbOffset, thumbMax + thumbOffset);
             
             thumbRect.setX(thumbPos);
         }
