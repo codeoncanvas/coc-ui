@@ -116,8 +116,12 @@ void Button::moveCenterTo( int x, int y ) {
 }
 
 //--------------------------------------------------------------
+const ButtonPoint & Button::getPointLast() const {
+    return pointLast;
+}
+
 const glm::ivec2 & Button::getPointPosLast() const {
-    return pointPos;
+    return pointLast.pos;
 }
 
 //--------------------------------------------------------------
@@ -229,7 +233,7 @@ void Button::update() {
             }
         }
         
-        pointPos = point.pos; // save last point position.
+        pointLast = point; // save last point.
     }
     
     points.clear();

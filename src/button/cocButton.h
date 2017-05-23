@@ -69,6 +69,7 @@ public:
 	void moveTo( int x, int y);
 	void moveCenterTo( int x, int y);
 
+    const ButtonPoint & getPointLast() const;
     const glm::ivec2 & getPointPosLast() const;
 
     void reset();
@@ -118,9 +119,9 @@ protected:
     bool bUpdateAsync;
     bool bRegisterEvents;
 
-    glm::ivec2 pointPos;
     glm::mat4 pointTransform;
     std::vector<ButtonPoint> points;
+    ButtonPoint pointLast;
     bool bOver;
     bool bOverChanged;
     bool bDown;
