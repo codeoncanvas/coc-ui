@@ -11,6 +11,8 @@
 	version=""
 	library=""
 	>
+	<supports os="macosx" />
+    <supports os="msw" />
 	
 	<headerPattern>src/*.h</headerPattern>
 	<sourcePattern>src/*.cpp</sourcePattern>
@@ -33,3 +35,4 @@
 
 </block>
 </cinder>
+
