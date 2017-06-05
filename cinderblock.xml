@@ -14,9 +14,21 @@
 	
 	<headerPattern>src/*.h</headerPattern>
 	<sourcePattern>src/*.cpp</sourcePattern>
+	<headerPattern>src/image/*.h</headerPattern>
+	<sourcePattern>src/image/*.cpp</sourcePattern>
+	<headerPattern>src/button/*.h</headerPattern>
+	<sourcePattern>src/button/*.cpp</sourcePattern>
+	<headerPattern>src/scrollbar/*.h</headerPattern>
+	<sourcePattern>src/scrollbar/*.cpp</sourcePattern>
+	<headerPattern>src/scrollview/*.h</headerPattern>
+	<sourcePattern>src/scrollview/*.cpp</sourcePattern>
 	
 	<platform os="msw">
 		<includePath system="false">src</includePath>
+		<includePath system="false">src/image</includePath>
+		<includePath system="false">src/button</includePath>
+		<includePath system="false">src/scrollbar</includePath>
+		<includePath system="false">src/scrollview</includePath>
 	</platform>
 
 </block>
