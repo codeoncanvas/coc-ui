@@ -16,44 +16,26 @@
     <Filter Include="Blocks">
       <UniqueIdentifier>{1AD68349-FA4E-4ED7-889A-1F9FE5BD0454}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Blocks\CoC-Button">
-      <UniqueIdentifier>{BCBE5601-FB53-4337-BAC5-BA210175671A}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Blocks\CoC-Button\src">
-      <UniqueIdentifier>{696E6D0F-4E61-461E-8EFB-E9B83305C418}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Blocks\CoC-Core">
       <UniqueIdentifier>{9D14BE60-3856-4940-A552-E7F172AB9DE6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\CoC-Core\src">
       <UniqueIdentifier>{2F07BDCB-19A9-4E42-910E-51FE86D60B30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Blocks\CoC-UI">
+      <UniqueIdentifier>{ec0d91e3-14fa-4287-a207-54330a749758}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\CoC-UI\src">
+      <UniqueIdentifier>{2ba1563a-6f14-4263-a391-36a643e0157b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\CoC-UI\src\button">
+      <UniqueIdentifier>{a17b978e-7582-4ed4-aa24-6730650d43e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\ButtonSampleWinApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClInclude Include="..\include\Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ciButton.h">
-      <Filter>Blocks\CoC-Button\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ciButtonTexture.h">
-      <Filter>Blocks\CoC-Button\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\cocButton.h">
-      <Filter>Blocks\CoC-Button\src</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\..\src\ciButton.cpp">
-      <Filter>Blocks\CoC-Button\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ciButtonTexture.cpp">
-      <Filter>Blocks\CoC-Button\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\cocButton.cpp">
-      <Filter>Blocks\CoC-Button\src</Filter>
-    </ClCompile>
     <ClInclude Include="..\..\..\..\coc-core\src\cocConstants.h">
       <Filter>Blocks\CoC-Core\src</Filter>
     </ClInclude>
@@ -93,6 +75,15 @@
     <ClCompile Include="..\src\ButtonSampleApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClInclude Include="..\..\..\src\button\ciButton.h">
+      <Filter>Blocks\CoC-UI\src\button</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\button\ciButtonTexture.h">
+      <Filter>Blocks\CoC-UI\src\button</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\button\cocButton.h">
+      <Filter>Blocks\CoC-UI\src\button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h">
@@ -103,5 +94,16 @@
     <ResourceCompile Include="Resources.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\button\ciButton.cpp">
+      <Filter>Blocks\CoC-UI\src\button</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\button\ciButtonTexture.cpp">
+      <Filter>Blocks\CoC-UI\src\button</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\button\cocButton.cpp">
+      <Filter>Blocks\CoC-UI\src\button</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
