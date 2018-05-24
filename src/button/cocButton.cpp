@@ -174,7 +174,7 @@ void Button::update() {
     for(int i=0; i<points.size(); i++) {
         ButtonPoint & point = points[i];
         
-        glm::vec4 pos(point.pos.x, point.pos.y, 0, 1);
+        glm::vec4 pos(point.screenPos.x, point.screenPos.y, 0, 1);
         pos = glm::inverse(pointTransform) * pos;
         point.pos = glm::vec2(pos.x, pos.y);
         
@@ -371,7 +371,8 @@ void Button::pointNew(ButtonPoint::Type type, int x, int y) {
     points.push_back(ButtonPoint());
     ButtonPoint & point = points.back();
     point.type = type;
-    point.pos = glm::ivec2(x, y);
+    point.pos = glm::ivec2(0, 0); // local pos determined in update.
+    point.screenPos = glm::ivec2(x, y);
 }
 
 }

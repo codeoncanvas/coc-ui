@@ -41,6 +41,7 @@ struct ButtonPoint {
 
     Type type;
     glm::ivec2 pos;
+    glm::ivec2 screenPos;
 };
 
 //--------------------------------------------------------------
