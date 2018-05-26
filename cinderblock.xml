@@ -2,7 +2,7 @@
 <cinder>
 <block
 	name="CoC-UI"
-	id=""
+	id="cc.codeoncanvas.ui"
 	author=""
 	summary=""
 	license=""
